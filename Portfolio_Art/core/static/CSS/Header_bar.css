@@ -1,0 +1,20 @@
+    #header {
+        display: flex;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px;
+    }
+
+    #header h1, #header input, #header button {
+        margin: 0;
+    }
+
+    #header h1 {
+        font-family: 'monospace', sans-serif;
+    }
+
+    #header input {
+        width: 70%;
+        border-radius: 10px;
+    }

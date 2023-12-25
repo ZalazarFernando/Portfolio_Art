@@ -1,5 +1,22 @@
 {% extends "Header_bar.html" %}
 
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/Home.css' %}">
+{% endblock %}
+
 {% block  content %}
-    
+    <section>
+        {% for _ in "123456" %}
+            <div class="cards">
+                <img src="https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="fox">
+                <h2>Title example</h2>
+                <h3>Description example</h3>
+                <div class="cards-hashtag">
+                    <h3>#hashtag</h3>
+                </div>
+            </div>
+    {% endfor %}
+    </section>
 {% endblock  %}
