@@ -9,15 +9,19 @@
 {% block  content %}
     <section>
         <div id="all-cards">
-            {% for _ in "123456" %}
-                <div class="cards">
-                    <img src="https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="fox">
-                    <h2>Title example</h2>
-                    <h3>Description example</h3>
-                    <div class="cards-hashtag">
-                        <h3>#hashtag</h3>
+            {% for _ in "123456789" %}
+                <a href="#">
+                    <div class="cards">
+                        <img src="https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="fox">
+                        <h2>Title example</h2>
+                        <h3>Description example</h3>
+                        <div class="cards-hashtag">
+                            {% for _ in '12' %}
+                                <h3>#hashtag</h3>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
+                </a>
             {% endfor %}
         </div>
     </section>

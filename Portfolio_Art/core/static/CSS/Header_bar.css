@@ -28,7 +28,5 @@
 }
 
 #header button:hover {
-    background-color: #c2c2c2;
-    height: 40px; 
-    width: 80px; 
+    box-shadow: 1px 1px 5px black;
 }
