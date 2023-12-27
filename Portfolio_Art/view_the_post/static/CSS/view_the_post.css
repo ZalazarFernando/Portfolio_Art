@@ -1,0 +1,26 @@
+    section {
+        margin-top: 110px;
+        background-color: #ececec;
+        border-radius: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    
+    #principal-card {
+        /*border: 2px solid red;*/
+        background-color: #ffffff;
+        display: flex;
+        border-radius: 10px;
+        height: 640px;
+        width: 98%;
+        margin-left: 1%;
+    }
+
+    #principal-card img {
+        width: auto;
+        height: 600px;
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }

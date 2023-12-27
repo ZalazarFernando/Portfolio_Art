@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Estrella artística</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'CSS/Header_bar.css' %}">
+        {% block styles %}
+
+        {% endblock %}
+    </head>
+
+    <body>
+        <div id="header">
+            <h1>Estrella artística</h1>
+            <input type="text">
+            <button type="button">Buscar</button>
+        </div>
+        {% block content %}
+
+        {% endblock %}
+    </body>
+</html>

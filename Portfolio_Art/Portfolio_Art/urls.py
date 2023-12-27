@@ -20,8 +20,10 @@ from django.contrib import admin
 from django.urls import path
 
 from core.views import HomeComponent
+from view_the_post.views import ViewThePostComponent
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomeComponent, name="home")
+    path('', HomeComponent, name="home"),
+    path("view_the_post/", ViewThePostComponent, name="view_the_post")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
