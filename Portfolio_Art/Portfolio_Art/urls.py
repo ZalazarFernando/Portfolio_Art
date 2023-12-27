@@ -21,9 +21,11 @@ from django.urls import path
 
 from core.views import HomeComponent
 from view_the_post.views import ViewThePostComponent
+from log_in.views import LogInComponent
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeComponent, name="home"),
-    path("view_the_post/", ViewThePostComponent, name="view_the_post")
+    path("view_the_post/", ViewThePostComponent, name="view_the_post"),
+    path('log_in/', LogInComponent, name="log_in")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -39,6 +39,7 @@
     }
 
     #all-cards {
+        margin-top: 20px;
         margin-left: 1%;
         width: 98%;
         display: grid;
