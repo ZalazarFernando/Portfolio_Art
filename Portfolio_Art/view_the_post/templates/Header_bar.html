@@ -6,6 +6,7 @@
     <head>
         <title>Estrella artística</title>
         <link rel="stylesheet" type="text/css" href="{% static 'CSS/Header_bar.css' %}">
+        <script src="{% static 'Javascript/scripts.js' %}"></script>
         {% block styles %}
 
         {% endblock %}
@@ -15,8 +16,8 @@
         <div id="header">
             <h1>Estrella artística</h1>
             <div id="search-elements">
-                <input type="text">
-                <button type="button">Buscar</button>
+                <input type="text" id="search-input">
+                <button type="button" onclick="search()">Buscar</button>
             </div>
             <a href="log_in"><button type="button">Iniciar sesión</button>
             <button type="button">Registrarte</button>
