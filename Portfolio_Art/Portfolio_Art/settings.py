@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'view_the_post',
-    'log_in'
+    'log_in',
+    'sign_up'
 ]
 
 MIDDLEWARE = [

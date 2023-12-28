@@ -1,6 +1,5 @@
 // En scripts.js
 function search() {
-    console.log("pruebapruebapruebapruebapruebaprueba")
     var input = document.getElementById("search-input");
     var filtro = input.value.toUpperCase();
     var cards = document.getElementById("all-cards").getElementsByClassName("cards");
