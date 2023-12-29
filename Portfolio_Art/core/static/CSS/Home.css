@@ -53,6 +53,10 @@
         font-size: 80%;
     }
 
+    .likes-user {
+        display: flex;
+    }
+
     .cards-hashtag {
         display: flex;
         flex-wrap: wrap;

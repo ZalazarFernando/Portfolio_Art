@@ -9,15 +9,19 @@
 {% block  content %}
     <section>
         <div id="all-cards">
-            {% for _ in "123456789" %}
+            {% for post in posting %}
                 <a href="view_the_post">
                     <div class="cards">
                         <img src="https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="fox">
-                        <h2>Title example</h2>
-                        <h3>Description example</h3>
+                        <h2>post.title</h2>
+                        <h3>post.description</h3>
+                        <div class="likes-user">
+                            <h3>post.user_id.nickname</h3>
+                            <h3>post.likes</h3>
+                        </div>
                         <div class="cards-hashtag">
-                            {% for _ in '12' %}
-                                <h3>#hashtag</h3>
+                            {% for hashtag in post.hashtag_set.all|slice:":2" %}
+                                <h3>hashtag.name_hashtag</h3>
                             {% endfor %}
                         </div>
                     </div>
