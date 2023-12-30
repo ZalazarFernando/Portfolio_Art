@@ -11,27 +11,25 @@
     <body>
         <div id="principal-frame">
             <div id="superior-frame">
-                <h2>Estralla artística te saluda</h2>
+                <h2>Estrella artística te saluda</h2>
             </div>
             <div id="bottom-frame">
                 <div id="put-info">
-                    <h2>Correo electrónico</h2>
-                    <input type="text">
-                    <h2>Contraseña</h2>
-                    <input type="text">
-                    <h2>Repetir contraseña</h2>
-                    <input type="text">
-                    <button type="button">Registrarte</button>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Registrarte</button>
+                    </form>
                 </div>
                 <div id="vertical-line"></div>
                 <div id="extra-info">
                     <p>
-                        Te damos la bienvenida, otra vez, a esta plataforma
+                        Te damos la bienvenida otra vez a esta plataforma
                         que tanto te quiere.
                     </p>
                     <p>
-                        Disfruta de tus imágenes, y todas nuestras características
-                        una vez que ingreses tus datos para verificar quien eres.
+                        Disfruta de tus imágenes y todas nuestras características
+                        una vez que ingreses tus datos para verificar quién eres.
                     </p>
                 </div>
             </div>

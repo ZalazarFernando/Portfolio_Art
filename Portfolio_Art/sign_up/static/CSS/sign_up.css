@@ -49,12 +49,12 @@ section div {
     margin-left: 20px;
 }
 
-#put-info {
+/*#put-info {
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
-}
+}*/
 
 input {
     border-radius: 10px;
@@ -74,4 +74,8 @@ button {
 
 button:hover {
     box-shadow: 1px 1px 5px black;
+}
+
+.form-control {
+    border: 2px solid red;
 }
