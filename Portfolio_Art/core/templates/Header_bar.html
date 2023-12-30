@@ -19,12 +19,22 @@
                 <input type="text" id="search-input">
                 <button type="button" onclick="search()">Buscar</button>
             </div>
-            <a href="log_in">
-                <button type="button">Iniciar sesión</button>
-            </a>
-            <a href="sign_up">
-                <button type="button">Registrarte</button>
-            </a>
+            {% if user.is_authenticated %}
+                <!-- Mostrar la imagen solo si se ha iniciado sesión -->
+                <a href="#">
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    alt="profile photo"
+                    id="image-profile">
+                </a>
+            {% else %}
+                <!-- Mostrar los botones solo si no se ha iniciado sesión -->
+                <a href="log_in">
+                    <button type="button">Iniciar sesión</button>
+                </a>
+                <a href="sign_up">
+                    <button type="button">Registrarte</button>
+                </a>
+            {% endif %}
         </div>
         {% block content %}
 
