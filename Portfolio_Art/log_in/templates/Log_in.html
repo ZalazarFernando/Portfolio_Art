@@ -15,11 +15,11 @@
             </div>
             <div id="bottom-frame">
                 <div id="put-info">
-                    <h2>Correo electrónico</h2>
-                    <input type="text">
-                    <h2>Contraseña</h2>
-                    <input type="text">
-                    <button type="button">Iniciar sesión</button>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Iniciar sesión</button>
+                    </form>
                 </div>
                 <div id="vertical-line"></div>
                 <div id="extra-info">
