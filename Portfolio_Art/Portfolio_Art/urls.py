@@ -23,11 +23,16 @@ from core.views import HomeComponent
 from view_the_post.views import ViewThePostComponent
 from log_in.views import LogInComponent
 from sign_up.views import SignUpComponent
+from upload_image.views import UploadImageComponent
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeComponent, name="home"),
     path("view_the_post/", ViewThePostComponent, name="view_the_post"),
     path('log_in/', LogInComponent, name="log_in"),
-    path('sign_up/', SignUpComponent, name='sign_up')
+    path('sign_up/', SignUpComponent, name='sign_up'),
+    path('upload_image/', UploadImageComponent, name="upload_image")
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
