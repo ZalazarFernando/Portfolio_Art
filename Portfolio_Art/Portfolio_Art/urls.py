@@ -28,7 +28,7 @@ from upload_image.views import UploadImageComponent
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomeComponent, name="home"),
-    path("view_the_post/", ViewThePostComponent, name="view_the_post"),
+    path("view_the_post/<int:post_id>/", ViewThePostComponent, name="view_the_post"),
     path('log_in/', LogInComponent, name="log_in"),
     path('sign_up/', SignUpComponent, name='sign_up'),
     path('upload_image/', UploadImageComponent, name="upload_image")

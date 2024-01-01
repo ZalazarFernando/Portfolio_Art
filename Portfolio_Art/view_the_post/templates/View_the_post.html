@@ -9,28 +9,28 @@
 {% block content %}
     <section>
         <div id="principal-card">
-            <img src="https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="fox">
+            <img src="{{posting.image}}" alt="fox">
             <div id="info-principal-card">
-                <h2>Title example</h2>
-                <h3>Description example</h3>
+                <h2>{{posting.title}}</h2>
+                <h3>{{posting.description}}</h3>
                 <div class="cards-hashtag">
-                    {% for _ in '1111111111111111' %}
-                        <h3>#hashtag</h3>
+                    {% for hashtag in hashtags %}
+                        <h3>{{hashtag.name_hashtag}}</h3>
                     {% endfor %}
                 </div>
             </div>
         </div>
 
         <div id="all-cards">
-            {% for _ in "1111111111" %}
-                <a href="view_the_post">
+            {% for post in all_posting %}
+                <a href="{% url 'view_the_post' post.id %}">
                     <div class="cards">
-                        <img src="https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="fox">
-                        <h2>Title example</h2>
-                        <h3>Description example</h3>
+                        <img src="{{post.image}}" alt="fox">
+                        <h2>{{post.title}}</h2>
+                        <h3>{{post.description}}</h3>
                         <div class="cards-hashtag">
-                            {% for _ in '11' %}
-                                <h3>#hashtag</h3>
+                            {% for hashtag in post.hashtag_set.all %}
+                                <h3>{{hashtag.name_hashtag}}</h3>
                             {% endfor %}
                         </div>
                     </div>
