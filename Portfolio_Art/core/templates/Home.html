@@ -12,21 +12,22 @@
             {% for post in posting %}
                 <a href="view_the_post">
                     <div class="cards">
-                        <img src="https://images.pexels.com/photos/2295744/pexels-photo-2295744.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="fox">
-                        <h2>post.title</h2>
-                        <h3>post.description</h3>
+                        <img src="{{post.image}}" alt="fox">
+                        <h2>{{post.title}}</h2>
+                        <h3>{{post.description}}</h3>
                         <div class="likes-user">
-                            <h3>post.user.nickname</h3>
-                            <h3>post.likes</h3>
+                            <h3>{{post.user.nickname}}</h3>
+                            <h3>{{post.likes}}</h3>
                         </div>
                         <div class="cards-hashtag">
                             {% for hashtag in post.hashtag_set.all|slice:":2" %}
-                                <h3>hashtag.name_hashtag</h3>
+                                <h3>{{hashtag.name_hashtag}}</h3>
                             {% endfor %}
                         </div>
                     </div>
                 </a>
             {% endfor %}
         </div>
+        
     </section>
 {% endblock  %}
