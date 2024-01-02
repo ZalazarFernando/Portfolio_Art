@@ -16,7 +16,7 @@
         <div id="header">
             <a href="{% url 'home' %}"><h1>Estrella artística</h1></a>
             <div id="search-elements">
-                <input type="text" id="search-input">
+                <input type="text" id="search-input" onkeypress="handleKeyPress(event)">
                 <button type="button" onclick="search()">Buscar</button>
             </div>
             {% if user.is_authenticated %}
@@ -43,4 +43,8 @@
 
         {% endblock %}
     </body>
+
+    <script>
+        var base_url = "{% url 'home_with_param' search='__filter__' %}";
+    </script>
 </html>

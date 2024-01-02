@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'view_the_post',
     'log_in',
     'sign_up',
     'upload_image'

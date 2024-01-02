@@ -1,17 +1,14 @@
-// En scripts.js
 function search() {
     var input = document.getElementById("search-input");
-    var filtro = input.value.toUpperCase();
-    var cards = document.getElementById("all-cards").getElementsByClassName("cards");
+    var filter = input.value.toUpperCase();
 
-    for (var i = 0; i < cards.length; i++) {
-        var titulo = cards[i].getElementsByTagName("h2")[0].textContent.toUpperCase();
-        var hashtag = cards[i].getElementsByClassName("cards-hashtag")[0].textContent.toUpperCase();
+    window.location.href = base_url.replace('__filter__', encodeURIComponent(filter));
+}
 
-        if (titulo.includes(filtro) || hashtag.includes(filtro)) {
-            cards[i].style.display = "";
-        } else {
-            cards[i].style.display = "none";
-        }
+function handleKeyPress(event) {
+    // Verifica si la tecla presionada es 'Enter'
+    if (event.key === 'Enter') {
+        // Llama a la función 'search' cuando se presiona 'Enter'
+        search();
     }
 }

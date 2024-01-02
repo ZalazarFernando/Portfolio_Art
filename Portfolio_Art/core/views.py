@@ -1,10 +1,15 @@
 from django.shortcuts import render
-from .models import User, Post, Hashtag
+from .models import Post
+from django.db.models import Q
 
 # Create your views here.
-def HomeComponent(request):
-    posting = Post.objects.select_related('user').prefetch_related('hashtag_set').all()
+def HomeComponent(request, search=None):
+    if search:
+        posting = Post.objects.filter(Q(title__icontains=search) | Q(hashtag__name_hashtag__icontains=search))
+    else:
+        posting = Post.objects.select_related('user').prefetch_related('hashtag_set').all()
 
+    posting = posting.select_related('user').prefetch_related('hashtag_set')
 
     context = {
         'posting' : posting
@@ -13,5 +18,23 @@ def HomeComponent(request):
     return render(
         request= request, 
         template_name="Home.html", 
+        context= context
+        )
+
+def ViewThePostComponent(request, post_id):
+    all_posting = Post.objects.select_related('user').prefetch_related('hashtag_set').all()
+
+    posting = Post.objects.get(id=post_id)
+    hashtags = posting.hashtag_set.all()
+
+    context = {
+        'posting' : posting,
+        'hashtags' : hashtags,
+        'all_posting' : all_posting
+    }
+
+    return render(
+        request= request, 
+        template_name= "View_the_post.html", 
         context= context
         )
