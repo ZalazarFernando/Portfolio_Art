@@ -12,17 +12,34 @@
             <div id="image-text">
                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 alt="profile photo">
-                <h2>Aquí va el nickname</h2>
+                <h2>{{user.nickname}}</h2>
             </div>
             <div id="boards-nav">
                 <h3>Tableros</h3>
-                <nav>
-                    <ul>
-                        {% for board in boards %}
-                            <a href="#"><li>{{board.name}}</li></a>
-                        {% endfor %}
-                    </ul>
-                </nav>
+                {% if boards %}
+                    <nav>
+                        <ul>
+                            {% for board in boards %}
+                                <li class="{% if board.name|length > 21 %}truncate-text{% endif %}">
+                                    <a href="#">
+                                        {% if board.name|length > 21 %}
+                                            {{ board.name|slice:":18" }}...
+                                        {% else %}
+                                            {{ board.name }}
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                    <a href="{% url 'create_new_board' %}">
+                        <button type="button">+</button>
+                    </a>
+                {% else %}
+                    <a href="{% url 'create_new_board' %}">
+                        <button type="button">+</button>
+                    </a>
+                {% endif %}
             </div>
         </div>
         <div id="all-cards">

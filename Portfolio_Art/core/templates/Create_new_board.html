@@ -1,0 +1,18 @@
+{% extends "Header_bar.html" %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static "CSS/Create_new_board.css" %}">
+{% endblock %}
+
+{% block content %}
+    <section id="section-create-new-board">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.name}}
+            {{form.description}}
+            <button type="submit">Crear</button>
+        </form>
+    </section>
+{% endblock %}

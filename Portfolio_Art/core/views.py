@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from .models import Post, Board, UserBoard
+from django.shortcuts import render, redirect
+from .models import Post, Board, User
+from .forms import BoardForm
 from django.db.models import Q
 
 # Create your views here.
@@ -43,16 +44,36 @@ def ProfileUserComponent(request):
     posting = Post.objects.filter(user=request.user)
     posting = posting.select_related('user').prefetch_related('hashtag_set')
 
-    id_board = UserBoard.objects.filter(user=request.user)
-    boards = Board.objects.filter(id__in=id_board.values('board'))
+    boards = Board.objects.filter(user=request.user)
+
+    if request.user.is_authenticated:
+        user = request.user
 
     context = {
         'posting' : posting,
-        'boards' : boards
+        'boards' : boards,
+        'user' : user
     }
 
     return render(
         request= request,
-        template_name= 'Profile_user.html',
+        template_name= "Profile_user.html",
         context= context
+    )
+
+def CreateNewBoardComponent(request):
+    if request.method == 'POST':
+        form = BoardForm(request.POST)
+        if form.is_valid():
+            board = form.save(commit=False)
+            board.user = request.user
+            board.save()
+            return redirect('profile_user')
+    else:
+        form = BoardForm()
+
+    return render(
+        request= request,
+        template_name= "Create_new_board.html",
+        context= {'form' : form}
     )
