@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import Post, Board, User
 from .forms import BoardForm
 from django.db.models import Q
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def HomeComponent(request, search=None):
@@ -77,3 +80,8 @@ def CreateNewBoardComponent(request):
         template_name= "Create_new_board.html",
         context= {'form' : form}
     )
+
+def LogOutComponent(request):
+    logout(request)
+    messages.info(request, "Logged out successfully!")
+    return redirect("home")

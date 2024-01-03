@@ -7,7 +7,6 @@
     #lateral-bar {
         background-color: #ffffff;
         width: 370px;
-        height: auto;
         text-align: center;
     }
 
@@ -20,6 +19,11 @@
         border: 1px solid black;
         border-radius: 10px;
         width: 95%;
+        transition: all 0.3s ease;
+    }
+
+    #lateral-bar #boards-nav:hover {
+        box-shadow: 1px 1px 5px black;
     }
 
     #lateral-bar #boards-nav nav {
@@ -53,7 +57,7 @@
         border-radius: 20px;
         border: 1px solid #000000;
         height: 40px;
-        width: 80px;
+        width: 180px;
         margin-bottom: 10px;
         transition: all 0.3s ease; 
     }
@@ -130,3 +134,13 @@
         font-weight: bold;
     }
 
+    #lateral-bar #options-profile {
+        display: flex;
+        flex-direction: column;
+        margin-left: 17%;
+        margin-top: 10px;
+    }
+
+    #lateral-bar #options-profile #logout-button {
+        margin-left: -25%;
+    }

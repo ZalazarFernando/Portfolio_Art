@@ -41,6 +41,12 @@
                     </a>
                 {% endif %}
             </div>
+            <div id="options-profile">
+                <button type="button">Configuraciones</button>
+                <a href="{% url 'logout' %}">
+                    <button type="button" id="logout-button">Cerrar sesión</button>
+                </a>
+            </div>
         </div>
         <div id="all-cards">
             {% for post in posting %}
