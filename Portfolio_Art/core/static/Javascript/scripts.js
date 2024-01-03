@@ -6,9 +6,7 @@ function search() {
 }
 
 function handleKeyPress(event) {
-    // Verifica si la tecla presionada es 'Enter'
     if (event.key === 'Enter') {
-        // Llama a la función 'search' cuando se presiona 'Enter'
         search();
     }
 }

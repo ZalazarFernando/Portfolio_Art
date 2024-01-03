@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Post
+from .models import Post, Board, UserBoard
 from django.db.models import Q
 
 # Create your views here.
@@ -38,3 +38,21 @@ def ViewThePostComponent(request, post_id):
         template_name= "View_the_post.html", 
         context= context
         )
+
+def ProfileUserComponent(request):
+    posting = Post.objects.filter(user=request.user)
+    posting = posting.select_related('user').prefetch_related('hashtag_set')
+
+    id_board = UserBoard.objects.filter(user=request.user)
+    boards = Board.objects.filter(id__in=id_board.values('board'))
+
+    context = {
+        'posting' : posting,
+        'boards' : boards
+    }
+
+    return render(
+        request= request,
+        template_name= 'Profile_user.html',
+        context= context
+    )

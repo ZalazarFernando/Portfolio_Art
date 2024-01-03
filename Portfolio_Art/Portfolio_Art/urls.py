@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from core.views import HomeComponent, ViewThePostComponent
+from core.views import HomeComponent, ViewThePostComponent, ProfileUserComponent
 from log_in.views import LogInComponent
 from sign_up.views import SignUpComponent
 from upload_image.views import UploadImageComponent
@@ -30,6 +30,7 @@ urlpatterns = [
     path('log_in/', LogInComponent, name="log_in"),
     path('sign_up/', SignUpComponent, name='sign_up'),
     path('upload_image/', UploadImageComponent, name="upload_image"),
+    path('profile_user/', ProfileUserComponent, name="profile_user"),
     path('', HomeComponent, name="home"),
     path('<str:search>/', HomeComponent, name="home_with_param"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

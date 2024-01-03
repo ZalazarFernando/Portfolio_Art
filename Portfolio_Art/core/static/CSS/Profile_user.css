@@ -1,0 +1,105 @@
+    #section-profile-user {
+        background-color: #ececec;
+        display: flex;
+        margin-top: 110px;
+    }
+    
+    #lateral-bar {
+        background-color: #ffffff;
+        width: 350px;
+        height: auto;
+        text-align: center;
+    }
+
+    #lateral-bar #image-text img {
+        width: 80%;
+        margin-top: 10px;
+    }
+
+    #lateral-bar #boards-nav nav {
+        width: 100px;
+        margin-left: -10%;
+    }
+
+    #lateral-bar #boards-nav nav li {
+        border: 1px solid #000000;
+        border-radius: 10px;
+        width: 250px;
+        height: 20px;
+        margin-bottom: 2px;
+        text-align: center;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    #lateral-bar #boards-nav nav li:hover {
+        box-shadow: 1px 1px 5px black;
+    }
+
+    #all-cards {
+        margin-left: 1%;
+        width: 98%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+        gap: 10px;
+    }
+
+    .cards {
+        margin-top: 5px;
+        background-color: #ffffff;
+        border: 1px solid #c2c2c2;
+        border-radius: 10px;
+        padding: 5px;
+        width: 225px;
+        max-height: 800px;
+        object-fit: cover;
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit; 
+    }
+
+    .cards:hover {
+        box-shadow: 2px 2px 5px black;
+    }
+
+    .cards img {
+        margin-top: 10px;
+        margin-left: 12px;
+        width: 90%;
+        height: auto;
+    }
+
+    .cards h2, .cards h3 {
+        margin-left: 12px;
+    }
+
+    .cards h2 {
+        font-family: Verdana, sans-serif;
+        font-size: 100%;
+    }
+
+    .cards h3 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 80%;
+    }
+
+    .likes-user {
+        display: flex;
+    }
+
+    .cards-hashtag {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-top: -15px;
+    }
+
+    .cards .cards-hashtag h3 {
+        font-family: Verdana, sans-serif;
+        font-size: 80%;
+        font-weight: bold;
+    }

@@ -40,3 +40,11 @@ class Post(models.Model):
 class Hashtag(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     name_hashtag = models.CharField(max_length=50)
+
+class Board(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=255)
+
+class UserBoard(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE)
