@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Post, Board, User
+from .models import Post, Board, UserPost, comments
 from .forms import BoardForm
 from django.db.models import Q
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 def HomeComponent(request, search=None):
@@ -42,6 +42,39 @@ def ViewThePostComponent(request, post_id):
         template_name= "View_the_post.html", 
         context= context
         )
+
+from django.http import HttpResponse
+
+def LikePostComponent(request):
+    try:
+        if request.method == 'POST' and request.user.is_authenticated:
+            post_id = request.POST.get('post_id')
+
+            if post_id is not None:
+                try:
+                    post = Post.objects.get(id=post_id)
+                    user_post, created = UserPost.objects.get_or_create(user=request.user, post=post)
+
+                    if user_post.like:
+                        user_post.like = False
+                        post.likes -= 1
+                    else:
+                        user_post.like = True
+                        post.likes += 1
+
+                    user_post.save()
+                    post.save()
+
+                    return HttpResponse('success')
+                except ObjectDoesNotExist:
+                    return HttpResponse('error: Post does not exist')
+            else:
+                return HttpResponse('error: post_id is required')
+        else:
+            return HttpResponse('error: unauthorized')
+    except Exception as e:
+        print('Error:', str(e))
+        return HttpResponse('error: ' + str(e))
 
 def ProfileUserComponent(request):
     posting = Post.objects.filter(user=request.user)

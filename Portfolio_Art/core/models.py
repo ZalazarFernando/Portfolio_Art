@@ -41,6 +41,18 @@ class Hashtag(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     name_hashtag = models.CharField(max_length=50)
 
+class UserPost(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    like = models.BooleanField()
+
+    class Meta:
+        unique_together = ['user', 'post']
+
+class comments(models.Model):
+    post = models.OneToOneField(UserPost, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=225)
+
 class Board(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
