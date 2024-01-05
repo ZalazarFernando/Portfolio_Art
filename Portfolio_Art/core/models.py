@@ -42,9 +42,9 @@ class Hashtag(models.Model):
     name_hashtag = models.CharField(max_length=50)
 
 class UserPost(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    post = models.OneToOneField(Post, on_delete=models.CASCADE)
-    like = models.BooleanField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    like = models.BooleanField(default=True)
 
     class Meta:
         unique_together = ['user', 'post']

@@ -55,19 +55,23 @@ def LikePostComponent(request):
                     post = Post.objects.get(id=post_id)
                     user_post, created = UserPost.objects.get_or_create(user=request.user, post=post)
 
-                    if user_post.like:
-                        user_post.like = False
-                        post.likes -= 1
+                    if not created:
+                        user_post.like = not user_post.like
                     else:
                         user_post.like = True
-                        post.likes += 1
 
-                    user_post.save()
+                    if user_post.like:
+                        post.likes += 1
+                    else:
+                        post.likes -= 1
+
                     post.save()
+                    user_post.save()
 
                     return HttpResponse('success')
                 except ObjectDoesNotExist:
-                    return HttpResponse('error: Post does not exist')
+                    # Manejar la excepción si es necesario
+                    return HttpResponse('error: ObjectDoesNotExist')
             else:
                 return HttpResponse('error: post_id is required')
         else:
