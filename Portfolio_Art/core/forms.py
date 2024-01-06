@@ -10,8 +10,8 @@ class BoardForm(forms.ModelForm):
         fields = ['name', 'description']
 
 class CommentForm(forms.ModelForm):
-    comment = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Escribe tu comentario', 'class':'form-control', 'rows':7, 'cols':45}))
-
+    comment = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Escribe tu comentario', 'name':'field-comment', 'class':'form-control', 'rows':7, 'cols':75}))
+    
     class Meta:
         model = Comments
         fields = ['comment']

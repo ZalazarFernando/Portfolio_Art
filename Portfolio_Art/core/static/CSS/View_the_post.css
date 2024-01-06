@@ -62,8 +62,6 @@ button:hover {
 }
 
 #buttons-principal-card {
-    display: flex;
-    flex-direction: row;
     border: 1px solid black;
     border-radius: 10px;
     width: 95%;
@@ -72,6 +70,12 @@ button:hover {
 
 #buttons-principal-card:hover {
     box-shadow: 1px 1px 5px black;
+}
+
+#buttons-up {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #btn-add-board {

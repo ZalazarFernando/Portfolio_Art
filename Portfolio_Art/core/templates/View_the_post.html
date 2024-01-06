@@ -22,30 +22,27 @@
                     </div>
                 </div>
                 <div id="buttons-principal-card">
-                    <div id="btn-likes">
-                        <h3>{{posting.likes}}</h3>
-                        <button 
-                            type="button" 
-                            id="btn-like" 
-                            data-post-id="{{ posting.id }}">Me gusta</button>
+                    <div id="buttons-up">
+                        <div id="btn-likes">
+                            <h3>{{posting.likes}}</h3>
+                            <button 
+                                type="button" 
+                                id="btn-like" 
+                                data-post-id="{{ posting.id }}">Me gusta</button>
+                        </div>
+                        <button type="button" id="btn-add-board">Añadir a tablero</button>
+                        <div id="count-btn-comments">
+                            <h3>{{ num_comments }}</h3>
+                            <button 
+                                type="button" 
+                                id="btn-comments"
+                                onclick="showComments()">Comentarios</button>
+                        </div>
                     </div>
-                    <button type="button" id="btn-add-board">Añadir a tablero</button>
-                    <div id="count-btn-comments">
-                        <h3>0</h3>
-                        <button 
-                            type="button" 
-                            id="btn-comments"
-                            onclick="showComments()">Comentarios</button>
-                    </div>
-                    <div id="commentSection"  style="display: none;">
+                    <div id="commentSection"  style="display: none; text-align: center;">
                         <form id="commentForm" method="post">
                             {% csrf_token %}
-                            <textarea 
-                                name="{{ form.comment.name }}" 
-                                rows="7" 
-                                cols="45" 
-                                placeholder="Escribe tu comentario" 
-                                class="form-control">{{ form.comment.value }}</textarea>
+                            {{ form.comment }}
                             <input type="hidden" name="post_id" value="{{ posting.id }}">
                             <button type="submit" class="form-control">Comentar</button>
                         </form>
@@ -76,17 +73,25 @@
         var comment_flag = false;
     
         function showComments() {
-            comment_flag = true;
-            updateDOMBasedOnCommentFlag();
+            if(comment_flag === false){
+                comment_flag = true;
+                updateDOMBasedOnCommentFlag();
+            } else {
+                comment_flag = false;
+                updateDOMBasedOnCommentFlag();
+            }
         }
     
         function updateDOMBasedOnCommentFlag() {
             var commentSection = document.getElementById('commentSection');
+            var buttonsBox = document.getElementById('buttons-principal-card');
     
             if (comment_flag) {
                 commentSection.style.display = 'block';
+                buttonsBox.style.marginTop = '-145px'
             } else {
                 commentSection.style.display = 'none';
+                buttonsBox.style.marginTop = '0px'
             }
         }
     </script>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Post, Board, UserPost
+from .models import Post, Board, UserPost, Comments
 from .forms import BoardForm, CommentForm
 from django.db.models import Q
 from django.contrib.auth import logout
@@ -33,9 +33,14 @@ def ViewThePostComponent(request, post_id):
     hashtags = posting.hashtag_set.all()
 
     # formulario oculto para comentarios
+    num_comments = 0
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
+        
+        print(request.POST)
         if form.is_valid():
+            
             user_post, created = UserPost.objects.get_or_create(
                 user=request.user, 
                 post=Post.objects.get(id=request.POST.get('post_id'))
@@ -44,6 +49,8 @@ def ViewThePostComponent(request, post_id):
             new_comment = form.save(commit=False)
             new_comment.post = user_post
             new_comment.save()
+
+            num_comments = Comments.objects.filter(post__id=user_post.id).count()
         else:
             print(form.errors)
     else:
@@ -52,7 +59,9 @@ def ViewThePostComponent(request, post_id):
     context = {
         'posting' : posting,
         'hashtags' : hashtags,
-        'all_posting' : all_posting
+        'all_posting' : all_posting,
+        'num_comments' : str(num_comments),
+        'form' : form
     }
 
     return render(
