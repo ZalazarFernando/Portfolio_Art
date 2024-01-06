@@ -1,4 +1,4 @@
-from .models import Board
+from .models import Board, Comments
 from django import forms
 
 class BoardForm(forms.ModelForm):
@@ -8,3 +8,10 @@ class BoardForm(forms.ModelForm):
     class Meta:
         model = Board
         fields = ['name', 'description']
+
+class CommentForm(forms.ModelForm):
+    comment = forms.CharField(widget=forms.Textarea(attrs={'placeholder':'Escribe tu comentario', 'class':'form-control', 'rows':7, 'cols':45}))
+
+    class Meta:
+        model = Comments
+        fields = ['comment']

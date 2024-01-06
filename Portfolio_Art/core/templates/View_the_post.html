@@ -32,7 +32,23 @@
                     <button type="button" id="btn-add-board">Añadir a tablero</button>
                     <div id="count-btn-comments">
                         <h3>0</h3>
-                        <button type="button" id="btn-comments">Comentarios</button>
+                        <button 
+                            type="button" 
+                            id="btn-comments"
+                            onclick="showComments()">Comentarios</button>
+                    </div>
+                    <div id="commentSection"  style="display: none;">
+                        <form id="commentForm" method="post">
+                            {% csrf_token %}
+                            <textarea 
+                                name="{{ form.comment.name }}" 
+                                rows="7" 
+                                cols="45" 
+                                placeholder="Escribe tu comentario" 
+                                class="form-control">{{ form.comment.value }}</textarea>
+                            <input type="hidden" name="post_id" value="{{ posting.id }}">
+                            <button type="submit" class="form-control">Comentar</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -55,6 +71,26 @@
         {% endfor %}
         </div>
     </section>
+
+    <script>
+        var comment_flag = false;
+    
+        function showComments() {
+            comment_flag = true;
+            updateDOMBasedOnCommentFlag();
+        }
+    
+        function updateDOMBasedOnCommentFlag() {
+            var commentSection = document.getElementById('commentSection');
+    
+            if (comment_flag) {
+                commentSection.style.display = 'block';
+            } else {
+                commentSection.style.display = 'none';
+            }
+        }
+    </script>
+
     <script>
         $(document).ready(function () {
             $('#btn-like').on('click', function () {

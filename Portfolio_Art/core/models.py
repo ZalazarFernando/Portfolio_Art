@@ -49,8 +49,8 @@ class UserPost(models.Model):
     class Meta:
         unique_together = ['user', 'post']
 
-class comments(models.Model):
-    post = models.OneToOneField(UserPost, on_delete=models.CASCADE)
+class Comments(models.Model):
+    post = models.ForeignKey(UserPost, on_delete=models.CASCADE)
     comment = models.CharField(max_length=225)
 
 class Board(models.Model):

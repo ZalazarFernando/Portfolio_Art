@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Post, Board, UserPost, comments
-from .forms import BoardForm
+from .models import Post, Board, UserPost
+from .forms import BoardForm, CommentForm
 from django.db.models import Q
 from django.contrib.auth import logout
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
 
 # Create your views here.
 def HomeComponent(request, search=None):
@@ -31,6 +32,23 @@ def ViewThePostComponent(request, post_id):
     posting = Post.objects.get(id=post_id)
     hashtags = posting.hashtag_set.all()
 
+    # formulario oculto para comentarios
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            user_post, created = UserPost.objects.get_or_create(
+                user=request.user, 
+                post=Post.objects.get(id=request.POST.get('post_id'))
+            )
+
+            new_comment = form.save(commit=False)
+            new_comment.post = user_post
+            new_comment.save()
+        else:
+            print(form.errors)
+    else:
+        form = CommentForm()
+
     context = {
         'posting' : posting,
         'hashtags' : hashtags,
@@ -42,8 +60,6 @@ def ViewThePostComponent(request, post_id):
         template_name= "View_the_post.html", 
         context= context
         )
-
-from django.http import HttpResponse
 
 def LikePostComponent(request):
     try:
@@ -70,7 +86,6 @@ def LikePostComponent(request):
 
                     return HttpResponse('success')
                 except ObjectDoesNotExist:
-                    # Manejar la excepción si es necesario
                     return HttpResponse('error: ObjectDoesNotExist')
             else:
                 return HttpResponse('error: post_id is required')
