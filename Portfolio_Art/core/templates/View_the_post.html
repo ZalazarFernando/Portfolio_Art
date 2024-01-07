@@ -47,7 +47,7 @@
                             <button type="submit" class="form-control">Comentar</button>
                         </form>
                     </div>
-                    <div id="showSection"  style="display: none; text-align: center;">
+                    <div id="showSection"  style="display: none; text-align: center; overflow-y: auto; max-height: 100px;">
                         {% for comment in comments_to_show %}
                             <div>
                                 {{ comment.user }}
@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <!--<div id="all-cards">
+        <div id="all-cards">
         {% for post in all_posting %}
             <a href="{% url 'view_the_post' post.id %}">
                 <div class="cards">
@@ -74,7 +74,7 @@
                 </div>
             </a>
         {% endfor %}
-        </div>-->
+        </div>
     </section>
 
     <script>
@@ -98,7 +98,7 @@
             if (comment_flag) {
                 commentSection.style.display = 'block';
                 showSection.style.display = 'block';
-                buttonsBox.style.marginTop = '-145px';
+                buttonsBox.style.marginTop = '-250px';
             } else {
                 commentSection.style.display = 'none';
                 showSection.style.display = 'none';

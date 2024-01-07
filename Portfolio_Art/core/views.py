@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages
 from .models import Post, Board, UserPost, Comments, User
 from .forms import BoardForm, CommentForm
@@ -33,7 +33,7 @@ def ViewThePostComponent(request, post_id):
     hashtags = posting.hashtag_set.all()
 
     # elementos ocultos para mostrar comentarios
-    user_post_comments = Comments.objects.filter(post__post=posting)
+    user_post_comments = Comments.objects.filter(post__post=post_id)
 
     comments_to_show = [{'user': comment.post.user.nickname, 'comment': comment.comment} for comment in user_post_comments]
 
@@ -57,11 +57,16 @@ def ViewThePostComponent(request, post_id):
             new_comment.save()
 
             user_post = UserPost.objects.get(user=request.user, post=posting)
-            num_comments = Comments.objects.filter(post=user_post).count()
+
+            return HttpResponseRedirect(request.path_info)
         else:
             print(form.errors)
     else:
         form = CommentForm()
+
+    num_comments = Comments.objects.filter(
+        post__post= post_id
+        ).count()
 
     context = {
         'posting' : posting,
