@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <div id="all-cards">
+        <!--<div id="all-cards">
         {% for post in all_posting %}
             <a href="{% url 'view_the_post' post.id %}">
                 <div class="cards">
@@ -74,7 +74,7 @@
                 </div>
             </a>
         {% endfor %}
-        </div>
+        </div>-->
     </section>
 
     <script>
@@ -94,11 +94,17 @@
             var commentSection = document.getElementById('commentSection');
             var showSection = document.getElementById('showSection');
             var buttonsBox = document.getElementById('buttons-principal-card');
+            
+            var heightBox = buttonsBox.clientHeight;
 
             if (comment_flag) {
                 commentSection.style.display = 'block';
                 showSection.style.display = 'block';
-                buttonsBox.style.marginTop = '-250px';
+
+                console.log("showSection: "+showSection.clientHeight+" buttonBox: "+heightBox)
+                console.log(-(heightBox + (showSection.clientHeight + heightBox)))
+                
+                buttonsBox.style.marginTop = 70-(heightBox + (showSection.clientHeight + heightBox)) + 'px';
             } else {
                 commentSection.style.display = 'none';
                 showSection.style.display = 'none';
