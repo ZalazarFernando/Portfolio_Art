@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages
-from .models import Post, Board, UserPost, Comments, User
+from .models import Post, Board, UserPost, Comments, User, BoardPost
 from .forms import BoardForm, CommentForm
 from django.db.models import Q
 from django.contrib.auth import logout
@@ -31,6 +31,8 @@ def ViewThePostComponent(request, post_id):
 
     posting = Post.objects.get(id=post_id)
     hashtags = posting.hashtag_set.all()
+
+    boards = Board.objects.filter(user= request.user)
 
     # elementos ocultos para mostrar comentarios
     user_post_comments = Comments.objects.filter(post__post=post_id)
@@ -74,6 +76,7 @@ def ViewThePostComponent(request, post_id):
         'all_posting' : all_posting,
         'num_comments' : str(num_comments),
         'comments_to_show' : comments_to_show,
+        'boards' : boards,
         'form' : form
     }
 
@@ -116,6 +119,26 @@ def LikePostComponent(request):
     except Exception as e:
         print('Error:', str(e))
         return HttpResponse('error: ' + str(e))
+    
+def AddPostToBoardComponent(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        board_id = request.POST.get('board_id')
+        post_id = request.POST.get('post_id')
+
+        if board_id and post_id:
+            try:
+                board = Board.objects.get(id=board_id)
+                post = Post.objects.get(id=post_id)
+
+                BoardPost.objects.create(board=board, post=post)
+
+                return HttpResponse('success')
+            except (Board.DoesNotExist, Post.DoesNotExist):
+                return HttpResponse('error: Board or Post does not exist')
+        else:
+            return HttpResponse('error: board_id and post_id are required')
+    else:
+        return HttpResponse('error: unauthorized')
 
 def ProfileUserComponent(request):
     posting = Post.objects.filter(user=request.user)
@@ -153,6 +176,21 @@ def CreateNewBoardComponent(request):
         request= request,
         template_name= "Create_new_board.html",
         context= {'form' : form}
+    )
+
+def BoardComponent(request, board_id):
+    boards = Board.objects.filter(user= request.user)
+    board = Board.objects.get(id=board_id)
+
+    context = {
+            'board' : board,
+            'boards' : boards
+        }
+
+    return render(
+        request= request,
+        template_name= "Board.html",
+        context= context
     )
 
 def LogOutComponent(request):

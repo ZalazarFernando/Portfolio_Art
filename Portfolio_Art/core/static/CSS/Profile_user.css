@@ -3,6 +3,12 @@
         display: flex;
         margin-top: 110px;
     }
+
+    #section-post-to-board {
+        width: 50%;
+        height: 50%;
+        background-color: white;
+    }
     
     #lateral-bar {
         background-color: #ffffff;

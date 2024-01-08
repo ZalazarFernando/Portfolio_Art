@@ -61,3 +61,10 @@ class Board(models.Model):
 class UserBoard(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
+
+class BoardPost(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    board = models.ForeignKey(Board, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['post','board']

@@ -21,20 +21,20 @@
             </div>
             {% if user.is_authenticated %}
                 <!-- Mostrar la imagen solo si se ha iniciado sesión -->
-                <a href="upload_image">
+                <a href="{% url 'upload_image' %}">
                     <button type="button" id="button-post-image">+</button>
                 </a>
-                <a href="profile_user">
+                <a href="{% url 'profile_user' %}">
                     <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     alt="profile photo"
                     id="image-profile">
                 </a>
             {% else %}
                 <!-- Mostrar los botones solo si no se ha iniciado sesión -->
-                <a href="log_in">
+                <a href="{% url 'log_in' %}">
                     <button type="button">Iniciar sesión</button>
                 </a>
-                <a href="sign_up">
+                <a href="{% url 'sign_up' %}">
                     <button type="button">Registrarte</button>
                 </a>
             {% endif %}

@@ -1,0 +1,78 @@
+section {
+    margin-top: 120px;
+    background-color: #ececec;
+}
+
+#lateral-bar {
+    background-color: #ffffff;
+    width: 290px;
+    text-align: center;
+}
+
+#lateral-bar #image-text img {
+    width: 80%;
+    margin-top: 10px;
+}
+
+#lateral-bar #boards-nav {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 95%;
+    transition: all 0.3s ease;
+}
+
+#lateral-bar #boards-nav:hover {
+    box-shadow: 1px 1px 5px black;
+}
+
+#lateral-bar #boards-nav nav {
+    width: 100px;
+    margin-left: -10.5%;
+}
+
+#lateral-bar #boards-nav nav li {
+    border: 1px solid #000000;
+    border-radius: 10px;
+    width: 250px;
+    height: 20px;
+    margin-bottom: 2px;
+    text-align: center;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+#lateral-bar #boards-nav nav li.truncate-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#lateral-bar #boards-nav nav li:hover {
+    box-shadow: 1px 1px 5px black;
+}
+
+#lateral-bar button {
+    background-color: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #000000;
+    height: 40px;
+    width: 180px;
+    margin-bottom: 10px;
+    margin-left: -5px;
+    transition: all 0.3s ease; 
+}
+
+#lateral-bar button:hover {
+    box-shadow: 1px 1px 5px black;
+}
+
+#lateral-bar #options-profile {
+    display: flex;
+    flex-direction: column;
+    margin-left: 17%;
+    margin-top: 10px;
+}
+
+#lateral-bar #options-profile #logout-button {
+    margin-left: -25%;
+}

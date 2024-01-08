@@ -30,7 +30,10 @@
                                 id="btn-like" 
                                 data-post-id="{{ posting.id }}">Me gusta</button>
                         </div>
-                        <button type="button" id="btn-add-board">Añadir a tablero</button>
+                        <button     
+                            type="button"   
+                            id="btn-add-board"
+                            onclick="showBoards()">Añadir a tablero</button>
                         <div id="count-btn-comments">
                             <h3>{{ num_comments }}</h3>
                             <button 
@@ -55,6 +58,32 @@
                             </div>
                         {% endfor %}
                     </div>
+                    <div id="boardsSection"  style="display: none; text-align: center; overflow-y: auto; max-height: 100px;">
+                        {% if boards %}
+                            <nav>
+                                <ul>
+                                    {% for board in boards %}
+                                    <li class="li_board" data-board-id="{{ board.id }}" onclick="addPostToBoard({{ board.id }})">
+                                            <a href="#">
+                                                {% if board.name|length > 21 %}
+                                                    {{ board.name|slice:":18" }}...
+                                                {% else %}
+                                                    {{ board.name }}
+                                                {% endif %}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </nav>
+                            <a href="{% url 'create_new_board' %}">
+                                <button type="button">+</button>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'create_new_board' %}">
+                                <button type="button">+</button>
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,6 +105,35 @@
         {% endfor %}
         </div>
     </section>
+
+    <script>
+        var board_flag = false;
+
+        function showBoards() {
+            if(board_flag === false){
+                board_flag = true;
+                updateDOMBaseOnBoardFlag();
+            } else {
+                board_flag = false;
+                updateDOMBaseOnBoardFlag();
+            }
+        }
+
+        function updateDOMBaseOnBoardFlag() {
+            var boardsSection = document.getElementById('boardsSection');
+            var buttonsBox = document.getElementById('buttons-principal-card');
+            
+            var heightBox = buttonsBox.clientHeight;
+
+            if (board_flag) {
+                boardsSection.style.display = 'block';
+                buttonsBox.style.marginTop = 210-(heightBox + (boardsSection.clientHeight + heightBox)) + 'px';
+            } else {
+                boardsSection.style.display = 'none';
+                buttonsBox.style.marginTop = '0px';
+            }
+        }
+    </script>
 
     <script>
         var comment_flag = false;
@@ -142,5 +200,31 @@
                 });
             }
         });
+    </script>
+
+    <script>
+        function addPostToBoard(boardId) {
+            var postId = '{{ posting.id }}';
+        
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'add_post_to_board' %}",
+                data: {
+                    'board_id': boardId,
+                    'post_id': postId,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (response) {
+                    if (response === 'success') {
+                        console.log('Post added to board successfully');
+                    } else {
+                        console.log('Error adding post to board');
+                    }
+                },
+                error: function (error) {
+                    console.log('Error adding post to board:', error);
+                }
+            });
+        }
     </script>
 {% endblock  %}
