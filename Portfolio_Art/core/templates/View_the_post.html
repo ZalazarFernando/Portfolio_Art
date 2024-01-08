@@ -41,6 +41,14 @@
                                 id="btn-comments"
                                 onclick="showComments()">Comentarios</button>
                         </div>
+                        {% if user.is_authenticated and posting.user.id == user.id %}
+                            <button 
+                                type="button"
+                                data-post-id="{{ posting.id }}"
+                                id="btn-delete"
+                                onclick="deletePost()"
+                                style="margin-top: 60px; margin-right: 40px;">Borrar</button>
+                        {% endif %}
                     </div>
                     <div id="commentSection"  style="display: none; text-align: center;">
                         <form id="commentForm" method="post">
@@ -76,7 +84,8 @@
                                 </ul>
                             </nav>
                             <a href="{% url 'create_new_board' %}">
-                                <button type="button">+</button>
+                                <button 
+                                    type="button">+</button>
                             </a>
                         {% else %}
                             <a href="{% url 'create_new_board' %}">
@@ -170,6 +179,31 @@
             }
         }
 
+    </script>
+
+    <script>
+        function deletePost(post_id){
+            var post_id = '{{ posting.id }}';
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'delete_post' %}",
+                data: {
+                    'post_id': post_id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response){
+                    if (response === 'success') {
+                        console.log('Post delete successfully');
+                    } else {
+                        console.log('Error delete post');
+                    }
+                },
+                error: function(error) {
+                    console.log('Error delete post:', error);
+                }
+            })
+        }
     </script>
 
     <script>

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages
-from .models import Post, Board, UserPost, Comments, User, BoardPost
+from .models import Post, Board, UserPost, Comments, BoardPost
 from .forms import BoardForm, CommentForm
 from django.db.models import Q
 from django.contrib.auth import logout
@@ -85,6 +85,26 @@ def ViewThePostComponent(request, post_id):
         template_name= "View_the_post.html", 
         context= context
         )
+
+def DeletePostComponent(request):
+    try:
+        if request.method == 'POST' and request.user.is_authenticated:
+            post_id = request.POST.get('post_id')
+
+            if post_id is not None:
+                try:
+                    Post.objects.get(id=post_id).delete()
+                    return redirect("home")
+                except ObjectDoesNotExist:
+                    return HttpResponse('error: ObjectDoesNotExist')
+            else:
+                return HttpResponse('error: post_id is required')
+        else:
+            return HttpResponse('error: unauthorized')
+    except Exception as e:
+        print('Error:', str(e))
+        return HttpResponse('error: ' + str(e))
+    
 
 def LikePostComponent(request):
     try:
