@@ -181,10 +181,15 @@ def CreateNewBoardComponent(request):
 def BoardComponent(request, board_id):
     boards = Board.objects.filter(user= request.user)
     board = Board.objects.get(id=board_id)
+    board_posts = BoardPost.objects.filter(board = board.id)
 
+    posts_of_board = [board_post.post for board_post in board_posts]
+    for post in posts_of_board:
+        print(post.title)
     context = {
             'board' : board,
-            'boards' : boards
+            'boards' : boards,
+            'posts_of_board' : posts_of_board
         }
 
     return render(
