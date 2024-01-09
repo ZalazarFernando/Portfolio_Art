@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from core.views import RemovePostComponent, DeletePostComponent, AddPostToBoardComponent, BoardComponent, LikePostComponent, HomeComponent, CreateNewBoardComponent, ViewThePostComponent, ProfileUserComponent, LogOutComponent
+from core.views import DeleteBoard, RemovePostComponent, DeletePostComponent, AddPostToBoardComponent, BoardComponent, LikePostComponent, HomeComponent, CreateNewBoardComponent, ViewThePostComponent, ProfileUserComponent, LogOutComponent
 from log_in.views import LogInComponent
 from sign_up.views import SignUpComponent
 from upload_image.views import UploadImageComponent
@@ -29,7 +29,8 @@ urlpatterns = [
     path('view_the_post/<int:post_id>/', ViewThePostComponent, name="view_the_post"),
     path('delete_post/', DeletePostComponent, name="delete_post"),
     path('remove_post_to_board/', RemovePostComponent, name="remove_post_to_board"),
-    path('add_post_to_board/', AddPostToBoardComponent, name='add_post_to_board'),
+    path('add_post_to_board/', AddPostToBoardComponent, name="add_post_to_board"),
+    path('delete_board/', DeleteBoard, name="delete_board"),
     path('board/<int:board_id>/', BoardComponent, name="board"),
     path('like_post/', LikePostComponent, name='like_post'),
     path('log_in/', LogInComponent, name="log_in"),

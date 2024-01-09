@@ -109,7 +109,7 @@ def RemovePostComponent(request):
             post_id = request.POST.get('post_id')
             board_id = request.POST.get('board_id')
 
-            if post_id is not None:
+            if post_id is not None and board_id is not None:
                 try:
                     BoardPost.objects.get(
                         board= board_id,
@@ -237,6 +237,28 @@ def BoardComponent(request, board_id):
         template_name= "Board.html",
         context= context
     )
+
+def DeleteBoard(request):
+    
+    try:
+        if request.method == 'POST' and request.user.is_authenticated:
+            
+            board_id = request.POST.get('board_id')
+
+            if board_id is not None:
+                try:
+                    Board.objects.get(id= board_id).delete()
+                    
+                    return HttpResponse('success')
+                except (Board.DoesNotExist, Post.DoesNotExist):
+                    return HttpResponse('error: Board or Post does not exist')
+            else:
+                return HttpResponse('error: board_id and post_id are required')
+        else:
+            return HttpResponse('error: unauthorized')
+    except Exception as e:
+        print('Error:', str(e))
+        return HttpResponse('error: ' + str(e))
 
 def LogOutComponent(request):
     logout(request)

@@ -44,6 +44,7 @@
                 {% endif %}
             </div>
             <div id="options-profile">
+                <button type="button" onclick="deleteBoard({{board.id}})">Eliminar</button>
                 <button type="button">Configuraciones</button>
                 <a href="{% url 'logout' %}">
                     <button type="button" id="logout-button">Cerrar sesión</button>
@@ -80,6 +81,32 @@
     </section>
 
     <script>
+        function deleteBoard(board_id) {
+
+            $.ajax({
+                type: "POST",
+                url: "{% url 'delete_board' %}",
+                data: {
+                    'board_id' : board_id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(response){
+                    if (response === 'success') {
+                        console.log('Board delete successfully');
+
+                        location.href = "{% url 'profile_user' %}";
+                    } else {
+                        console.log('Error delete board');
+                    }
+                },
+                error: function(error){
+                    console.log("Error delete: ", error);
+                }
+            })
+        }
+    </script>
+
+    <script>
         function removeFromBoard(post_id, board_id){
 
             $.ajax({
@@ -90,7 +117,7 @@
                     'board_id' : board_id,
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 },
-                success: function(responde){
+                success: function(response){
                     if (response === 'success') {
                         console.log('Post remove successfully');
 
