@@ -45,8 +45,6 @@ def ViewThePostComponent(request, post_id):
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        
-        print(request.POST)
         if form.is_valid():
             
             user_post, created = UserPost.objects.get_or_create(
@@ -95,6 +93,30 @@ def DeletePostComponent(request):
                 try:
                     Post.objects.get(id=post_id).delete()
                     return redirect("home")
+                except ObjectDoesNotExist:
+                    return HttpResponse('error: ObjectDoesNotExist')
+            else:
+                return HttpResponse('error: post_id is required')
+        else:
+            return HttpResponse('error: unauthorized')
+    except Exception as e:
+        print('Error:', str(e))
+        return HttpResponse('error: ' + str(e))
+    
+def RemovePostComponent(request):
+    try:
+        if request.method == 'POST' and request.user.is_authenticated:
+            post_id = request.POST.get('post_id')
+            board_id = request.POST.get('board_id')
+
+            if post_id is not None:
+                try:
+                    BoardPost.objects.get(
+                        board= board_id,
+                        post= post_id
+                        ).delete()
+
+                    return HttpResponse("success")
                 except ObjectDoesNotExist:
                     return HttpResponse('error: ObjectDoesNotExist')
             else:
@@ -204,8 +226,6 @@ def BoardComponent(request, board_id):
     board_posts = BoardPost.objects.filter(board = board.id)
 
     posts_of_board = [board_post.post for board_post in board_posts]
-    for post in posts_of_board:
-        print(post.title)
     context = {
             'board' : board,
             'boards' : boards,

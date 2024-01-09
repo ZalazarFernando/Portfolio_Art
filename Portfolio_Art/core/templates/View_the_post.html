@@ -44,9 +44,8 @@
                         {% if user.is_authenticated and posting.user.id == user.id %}
                             <button 
                                 type="button"
-                                data-post-id="{{ posting.id }}"
                                 id="btn-delete"
-                                onclick="deletePost()"
+                                onclick="deletePost({{ posting.id }})"
                                 style="margin-top: 60px; margin-right: 40px;">Borrar</button>
                         {% endif %}
                     </div>
@@ -71,7 +70,7 @@
                             <nav>
                                 <ul>
                                     {% for board in boards %}
-                                    <li class="li_board" data-board-id="{{ board.id }}" onclick="addPostToBoard({{ board.id }})">
+                                    <li class="li_board" onclick="addPostToBoard({{ board.id }})">
                                             <a href="#">
                                                 {% if board.name|length > 21 %}
                                                     {{ board.name|slice:":18" }}...
@@ -183,7 +182,6 @@
 
     <script>
         function deletePost(post_id){
-            var post_id = '{{ posting.id }}';
 
             $.ajax({
                 type: "POST",
