@@ -25,7 +25,14 @@
                             
                 <div id="input-description-hashtag">
                     {{ post_form.description }}
-                    {{ hashtag_form.name_hashtag }}
+                    <!--{{ hashtag_form.name_hashtag }}-->
+                    <textarea 
+                        rows="7" 
+                        cols="45" 
+                        class="form-control" 
+                        id="hashtag" 
+                        name="hashtag" 
+                        placeholder="hashtags"></textarea>
                     <button type="submit">Guardar</button>
                 </div>
             </form>
