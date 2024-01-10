@@ -17,7 +17,7 @@ def HomeComponent(request, search=None):
     posting = posting.select_related('user').prefetch_related('hashtag_set')
 
     context = {
-        'posting' : posting
+        'posting' : posting.order_by('-likes')
     }
 
     return render(
@@ -32,7 +32,10 @@ def ViewThePostComponent(request, post_id):
     posting = Post.objects.get(id=post_id)
     hashtags = posting.hashtag_set.all()
 
-    boards = Board.objects.filter(user= request.user)
+    if request.user.is_authenticated:
+        boards = Board.objects.filter(user= request.user)
+    else:
+        boards = 0
 
     # elementos ocultos para mostrar comentarios
     user_post_comments = Comments.objects.filter(post__post=post_id)
@@ -92,7 +95,7 @@ def DeletePostComponent(request):
             if post_id is not None:
                 try:
                     Post.objects.get(id=post_id).delete()
-                    return redirect("home")
+                    return HttpResponse('success')
                 except ObjectDoesNotExist:
                     return HttpResponse('error: ObjectDoesNotExist')
             else:

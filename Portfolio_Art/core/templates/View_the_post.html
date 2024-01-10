@@ -87,8 +87,8 @@
                                     type="button">+</button>
                             </a>
                         {% else %}
-                            <a href="{% url 'create_new_board' %}">
-                                <button type="button">+</button>
+                            <a href="{% url 'log_in' %}">
+                                <button type="button">Iniciar sesión</button>
                             </a>
                         {% endif %}
                     </div>
@@ -193,6 +193,8 @@
                 success: function(response){
                     if (response === 'success') {
                         console.log('Post delete successfully');
+
+                        location.href = "{% url 'home' %}"
                     } else {
                         console.log('Error delete post');
                     }
