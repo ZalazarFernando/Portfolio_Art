@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'core',
     'log_in',
     'sign_up',
-    'upload_image'
+    'upload_image',
+    'configuration_profile'
 ]
 
 MIDDLEWARE = [

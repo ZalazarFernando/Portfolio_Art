@@ -23,6 +23,7 @@ from core.views import DeleteBoard, RemovePostComponent, DeletePostComponent, Ad
 from log_in.views import LogInComponent
 from sign_up.views import SignUpComponent
 from upload_image.views import UploadImageComponent, EditPostComponent
+from configuration_profile.views import ConfigurationProfileComponent
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
@@ -37,9 +38,10 @@ urlpatterns = [
     path('logout/', LogOutComponent, name="logout"),
     path('sign_up/', SignUpComponent, name="sign_up"),
     path('upload_image/', UploadImageComponent, name="upload_image"),
-    path('edit-post/<int:post_id>/', EditPostComponent, name="edit-post"),
+    path('edit_post/<int:post_id>/', EditPostComponent, name="edit_post"),
     path('profile_user/', ProfileUserComponent, name="profile_user"),
     path('create_new_board/', CreateNewBoardComponent, name="create_new_board"),
+    path('configuration_profile/', ConfigurationProfileComponent, name="configuration_profile"),
     path('', HomeComponent, name="home"),
     path('<str:search>/', HomeComponent, name="home_with_param"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -42,7 +42,9 @@
                 {% endif %}
             </div>
             <div id="options-profile">
-                <button type="button">Configuraciones</button>
+                <a href="{% url 'configuration_profile' %}">
+                    <button type="button">Configuraciones</button>
+                </a>
                 <a href="{% url 'logout' %}">
                     <button type="button" id="logout-button">Cerrar sesión</button>
                 </a>

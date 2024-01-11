@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Configuraciones</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'CSS/Configuration_profile.css' %}">
+    </head>
+
+    <body>
+
+        <div id="lateral-bar">
+            <h2>Configuraciones</h2>
+            <nav>
+                <ul>
+                    <li>Editar perfil</li>
+                    <li>Cambiar contraseña</li>
+                </ul>
+            </nav>
+        </div>
+
+        <div id="edit-profile" style="display: none;">
+            <div id="nickname"> 
+                <h3>Nombre de usuario</h3>
+                <input type="text">
+                <button type="button">Guardar</button>
+            </div>
+
+            <div id="image-profile">
+                <h3>Foto de perfil</h3>
+                <div id="data-image">
+                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="foto">
+                    <div id="url-btn">
+                        <input type="text">
+                        <button type="button" id="btn-save-image">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="changes-acount" style="display: block;">
+            <div id="password"> 
+                <h3>Contraseña actual</h3>
+                <input type="text">
+                <h3>Contraseña nueva</h3>
+                <input type="text">
+                <h3>Repetir contraseña nueva</h3>
+                <input type="text">
+                
+                <button type="button">Guardar</button>
+            </div>
+        </div>
+    </body>
+</html>
