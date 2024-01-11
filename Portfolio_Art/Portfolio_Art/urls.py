@@ -22,7 +22,7 @@ from django.urls import path
 from core.views import DeleteBoard, RemovePostComponent, DeletePostComponent, AddPostToBoardComponent, BoardComponent, LikePostComponent, HomeComponent, CreateNewBoardComponent, ViewThePostComponent, ProfileUserComponent, LogOutComponent
 from log_in.views import LogInComponent
 from sign_up.views import SignUpComponent
-from upload_image.views import UploadImageComponent
+from upload_image.views import UploadImageComponent, EditPostComponent
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
@@ -32,11 +32,12 @@ urlpatterns = [
     path('add_post_to_board/', AddPostToBoardComponent, name="add_post_to_board"),
     path('delete_board/', DeleteBoard, name="delete_board"),
     path('board/<int:board_id>/', BoardComponent, name="board"),
-    path('like_post/', LikePostComponent, name='like_post'),
+    path('like_post/', LikePostComponent, name="like_post"),
     path('log_in/', LogInComponent, name="log_in"),
-    path('logout/', LogOutComponent, name='logout'),
-    path('sign_up/', SignUpComponent, name='sign_up'),
+    path('logout/', LogOutComponent, name="logout"),
+    path('sign_up/', SignUpComponent, name="sign_up"),
     path('upload_image/', UploadImageComponent, name="upload_image"),
+    path('edit-post/<int:post_id>/', EditPostComponent, name="edit-post"),
     path('profile_user/', ProfileUserComponent, name="profile_user"),
     path('create_new_board/', CreateNewBoardComponent, name="create_new_board"),
     path('', HomeComponent, name="home"),

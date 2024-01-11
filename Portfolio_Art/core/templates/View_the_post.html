@@ -42,11 +42,19 @@
                                 onclick="showComments()">Comentarios</button>
                         </div>
                         {% if user.is_authenticated and posting.user.id == user.id %}
-                            <button 
+                            <div 
+                                id="btns-for-user" 
+                                style="display: flex; flex-direction: column; margin-right: 20px; margin-top: 10px">
+                                <a href="{% url 'edit-post' posting.id %}">
+                                    <button 
+                                        type="button"
+                                        id="btn-modify">Editar</button>
+                                </a>
+                                <button 
                                 type="button"
                                 id="btn-delete"
-                                onclick="deletePost({{ posting.id }})"
-                                style="margin-top: 60px; margin-right: 40px;">Borrar</button>
+                                onclick="deletePost({{ posting.id }})">Borrar</button>
+                            </div>
                         {% endif %}
                     </div>
                     <div id="commentSection"  style="display: none; text-align: center;">
