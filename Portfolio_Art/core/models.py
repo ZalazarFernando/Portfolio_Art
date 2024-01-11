@@ -21,11 +21,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     nickname = models.CharField(unique=True, max_length=255)
     follow = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
+    image = models.CharField(max_length=255, default="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png")
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
-    # Agrega o cambia los related_name en las relaciones muchos a muchos
     groups = models.ManyToManyField(Group, related_name='user_groups', blank=True)
     user_permissions = models.ManyToManyField(Permission, related_name='user_permissions', blank=True)
 

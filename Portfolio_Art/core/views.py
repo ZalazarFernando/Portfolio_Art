@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib import messages
-from .models import Post, Board, UserPost, Comments, BoardPost
+from .models import Post, Board, UserPost, Comments, BoardPost, User
 from .forms import BoardForm, CommentForm
 from django.db.models import Q
 from django.contrib.auth import logout
@@ -8,6 +8,17 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 
 # Create your views here.
+def HeaderBarComponent(request):
+    user = User.objects.get(nickname= request.user.nickname)
+
+    return render(
+        request= request,
+        template_name= "Header_bar.html",
+        context= {
+            'user' : user
+        }
+    )
+
 def HomeComponent(request, search=None):
     if search:
         posting = Post.objects.filter(Q(title__icontains=search) | Q(hashtag__name_hashtag__icontains=search))

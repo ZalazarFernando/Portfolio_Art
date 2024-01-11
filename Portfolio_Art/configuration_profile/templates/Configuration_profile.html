@@ -11,35 +11,52 @@
     <body>
 
         <div id="lateral-bar">
+            <div id="image-text">
+                <img src="{{user.image}}"
+                alt="profile photo">
+                <h2>{{user.nickname}}</h2>
+            </div>
             <h2>Configuraciones</h2>
             <nav>
                 <ul>
-                    <li>Editar perfil</li>
-                    <li>Cambiar contraseña</li>
+                    <li onclick="updateDOMBaseOnEditProfileFlag()">Editar perfil</li>
+                    <li onclick="updateDOMBaseOnchangesAcountFlag()">Cambiar contraseña</li>
+                    <li onclick="backToProfile()">Volver</li>
                 </ul>
             </nav>
         </div>
 
-        <div id="edit-profile" style="display: none;">
-            <div id="nickname"> 
-                <h3>Nombre de usuario</h3>
-                <input type="text">
-                <button type="button">Guardar</button>
-            </div>
+        <div id="edit-profile" style="display: block;">
+            <form method="post">
+                <div id="nickname">
+                    {% csrf_token %}
+                    <h3>Nombre de usuario</h3>
+                    <!--<input type="text" placeholder="{{user.nickname}}">-->
+                    <div id="error-container">
+                        <p id="error-message"></p>
+                    </div>
+                    {{form_nickname.nickname}}
+                    <button type="submit">Guardar</button>
+                </div>
+            </form>
 
             <div id="image-profile">
-                <h3>Foto de perfil</h3>
-                <div id="data-image">
-                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="foto">
-                    <div id="url-btn">
-                        <input type="text">
-                        <button type="button" id="btn-save-image">Guardar</button>
+                <form method="post">
+                    {% csrf_token %}
+                    <h3>Foto de perfil</h3>
+                    <div id="data-image">
+                        <img src="{{user.image}}" alt="foto">
+                        <div id="url-btn">
+                            <!--<input type="text">-->
+                            {{ form_image.image }}
+                            <button type="submit" id="btn-save-image">Guardar</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 
-        <div id="changes-acount" style="display: block;">
+        <div id="changes-acount" style="display: none;">
             <div id="password"> 
                 <h3>Contraseña actual</h3>
                 <input type="text">
@@ -52,4 +69,42 @@
             </div>
         </div>
     </body>
+
+    <script>
+        function updateDOMBaseOnchangesAcountFlag(){
+            var changesAcountBox = document.getElementById('changes-acount');
+            var editProfile = document.getElementById('edit-profile');
+
+            editProfile.style.display = 'none';
+            changesAcountBox.style.display = 'block';
+        }
+    </script>
+
+    <script>
+        function updateDOMBaseOnEditProfileFlag(){
+            var changesAcountBox = document.getElementById('changes-acount');
+            var editProfile = document.getElementById('edit-profile');
+
+            changesAcountBox.style.display = 'none';
+            editProfile.style.display = 'block';
+        }
+    </script>
+
+    <script>
+        function backToProfile(){
+            location.href = "{% url 'profile_user' %}"
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var errorContainer = document.getElementById('error-container');
+            var errorMessage = document.getElementById('error-message');
+    
+            {% if form_nickname.errors.nickname %}
+                errorContainer.style.display = 'block';
+                errorMessage.innerText = "{{ form_nickname.errors.nickname.0 }}";
+            {% endif %}
+        });
+    </script>
 </html>

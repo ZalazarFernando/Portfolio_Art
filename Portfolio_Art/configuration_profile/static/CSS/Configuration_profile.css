@@ -20,6 +20,12 @@ input {
     height: 700px;
 }
 
+#lateral-bar #image-text img {
+    width: 80%;
+    margin-top: 20px;
+    margin-left: -1%;
+}
+
 #edit-profile {
     background-color: #ececec;
     margin-left: 20px;
@@ -42,6 +48,24 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#error-container {
+    position: absolute;
+    background-color: #ff9999;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ff0000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: none;
+    width: 100px;
+    margin-left: 700px;
+    margin-top: 20px;
+}
+
+#error-message {
+    margin: 0;
+    color: #ff0000;
 }
 
 #nickname button {
