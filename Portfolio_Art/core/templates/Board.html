@@ -11,54 +11,59 @@
     <section>
         <div id="lateral-bar">
             <div id="image-text">
-                <img src="{{user.image}}"
+                <img src="{{board.user.image}}"
                 alt="profile photo">
-                <h2>{{user.nickname}}</h2>
+                <h2>{{board.user.nickname}}</h2>
                 <h2>{{ board.name }}</h2>
                 <p>{{board.description}}</p>
             </div>
-            <div id="boards-nav">
-                <h3>Tableros</h3>
-                {% if boards %}
-                    <nav>
-                        <ul>
-                            {% for board in boards %}
-                                <li class="{% if board.name|length > 21 %}truncate-text{% endif %}">
-                                    <a href="{% url 'board' board.id %}">
-                                        {% if board.name|length > 21 %}
-                                            {{ board.name|slice:":18" }}...
-                                        {% else %}
-                                            {{ board.name }}
-                                        {% endif %}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </nav>
-                    <a href="{% url 'create_new_board' %}">
-                        <button type="button">+</button>
+            {% if board.user.id == user.id%}
+                <div id="boards-nav">
+                    <h3>Tableros</h3>
+                    {% if boards %}
+                        <nav>
+                            <ul>
+                                {% for board in boards %}
+                                    <li class="{% if board.name|length > 21 %}truncate-text{% endif %}">
+                                        <a href="{% url 'board' board.id %}">
+                                            {% if board.name|length > 21 %}
+                                                {{ board.name|slice:":18" }}...
+                                            {% else %}
+                                                {{ board.name }}
+                                            {% endif %}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                        <a href="{% url 'create_new_board' %}">
+                            <button type="button">+</button>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'create_new_board' %}">
+                            <button type="button">+</button>
+                        </a>
+                    {% endif %}
+                </div>
+                <div id="options-profile">
+                    <button type="button" onclick="deleteBoard({{board.id}})">Eliminar</button>
+                    <button type="button">Configuraciones</button>
+                    <a href="{% url 'logout' %}">
+                        <button type="button" id="logout-button">Cerrar sesión</button>
                     </a>
-                {% else %}
-                    <a href="{% url 'create_new_board' %}">
-                        <button type="button">+</button>
-                    </a>
-                {% endif %}
-            </div>
-            <div id="options-profile">
-                <button type="button" onclick="deleteBoard({{board.id}})">Eliminar</button>
-                <button type="button">Configuraciones</button>
-                <a href="{% url 'logout' %}">
-                    <button type="button" id="logout-button">Cerrar sesión</button>
-                </a>
-            </div>
+                </div>
+            {% endif %}
         </div>
+            
         <div id="all-cards">
             {% for post in posts_of_board %}
                 <div>
-                    <button 
-                        type="button"
-                        id="remove-btn"
-                        onclick="removeFromBoard('{{ post.id }}', '{{ board.id }}')">x</button>
+                    {% if user.id == board.user.id%}
+                        <button 
+                            type="button"
+                            id="remove-btn"
+                            onclick="removeFromBoard('{{ post.id }}', '{{ board.id }}')">x</button>
+                    {% endif %}
                     <a href="{% url 'view_the_post' post.id %}">
                         <div class="cards">
                             

@@ -238,7 +238,10 @@ def CreateNewBoardComponent(request):
     )
 
 def BoardComponent(request, board_id):
-    boards = Board.objects.filter(user= request.user)
+    if request.user.is_authenticated:
+        boards = Board.objects.filter(user= request.user)
+    else:
+        boards = Board.objects.all()
     board = Board.objects.get(id=board_id)
     board_posts = BoardPost.objects.filter(board = board.id)
 
