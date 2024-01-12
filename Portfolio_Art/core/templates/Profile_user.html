@@ -17,21 +17,23 @@
             <div id="boards-nav">
                 <h3>Tableros</h3>
                 {% if boards %}
-                    <nav>
-                        <ul>
-                            {% for board in boards %}
-                                <li class="{% if board.name|length > 21 %}truncate-text{% endif %}">
-                                    <a href="{% url 'board' board.id %}">
-                                        {% if board.name|length > 21 %}
-                                            {{ board.name|slice:":18" }}...
-                                        {% else %}
-                                            {{ board.name }}
-                                        {% endif %}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </nav>
+                    <div id="overflow-for-nav">
+                        <nav>
+                            <ul>
+                                {% for board in boards %}
+                                    <li class="{% if board.name|length > 21 %}truncate-text{% endif %}">
+                                        <a href="{% url 'board' board.id %}">
+                                            {% if board.name|length > 21 %}
+                                                {{ board.name|slice:":18" }}...
+                                            {% else %}
+                                                {{ board.name }}
+                                            {% endif %}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    </div>
                     <a href="{% url 'create_new_board' %}">
                         <button type="button">+</button>
                     </a>

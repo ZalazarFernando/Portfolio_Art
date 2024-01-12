@@ -8,6 +8,20 @@
 
 {% block  content %}
     <section>
+        {% if boards %}
+            <div id="boards-search">
+                <div id="container-board-cards">
+                    {% for board in boards %}
+                        <div id="board-card">
+                            <a href="{% url 'board' board.id %}">
+                                <h2>{{board.name}}</h2>
+                                <h2 class="user-name-h2">{{board.user.nickname}}</h2>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
         <div id="all-cards">
             {% for post in posting %}
                 <a href="{% url 'view_the_post' post.id %}">

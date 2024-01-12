@@ -25,7 +25,13 @@
         border: 1px solid black;
         border-radius: 10px;
         width: 95%;
+        
         transition: all 0.3s ease;
+    }
+
+    #overflow-for-nav {
+        max-height: 300px;
+        overflow-x: auto;
     }
 
     #lateral-bar #boards-nav:hover {

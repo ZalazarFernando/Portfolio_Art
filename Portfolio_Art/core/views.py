@@ -22,13 +22,16 @@ def HeaderBarComponent(request):
 def HomeComponent(request, search=None):
     if search:
         posting = Post.objects.filter(Q(title__icontains=search) | Q(hashtag__name_hashtag__icontains=search))
+        boards = Board.objects.filter(name__icontains=search)
     else:
         posting = Post.objects.select_related('user').prefetch_related('hashtag_set').all()
+        boards = None
 
     posting = posting.select_related('user').prefetch_related('hashtag_set')
 
     context = {
-        'posting' : posting.order_by('-likes')
+        'posting' : posting.order_by('-likes'),
+        'boards' : boards
     }
 
     return render(
