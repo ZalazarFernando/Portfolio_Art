@@ -106,14 +106,16 @@ def DeletePostComponent(request):
         if request.method == 'POST' and request.user.is_authenticated:
             post_id = request.POST.get('post_id')
 
-            if post_id is not None:
+            post_aux = Post.objects.get(id=post_id)
+
+            if post_id is not None and request.user.id == post_aux.user.id:
                 try:
                     Post.objects.get(id=post_id).delete()
                     return HttpResponse('success')
                 except ObjectDoesNotExist:
                     return HttpResponse('error: ObjectDoesNotExist')
             else:
-                return HttpResponse('error: post_id is required')
+                return HttpResponse('error: post_id is required or user is not owner')
         else:
             return HttpResponse('error: unauthorized')
     except Exception as e:
