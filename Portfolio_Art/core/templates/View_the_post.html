@@ -111,8 +111,21 @@
                     <img src="{{post.image}}" alt="fox">
                     <h2>{{post.title}}</h2>
                     <h3>{{post.description}}</h3>
+                    <div class="likes-user">
+                        <div class="mini-image-container">
+                            <img 
+                                class="mini-image-user" 
+                                src="{{ post.user.image }}" 
+                                alt="image-user">
+                        </div>
+                        <h3>{{post.user.nickname}}</h3>
+                        <div class="letters-like">
+                            <h3>me gusta:</h3>
+                            <h3>{{post.likes}}</h3>
+                        </div>
+                    </div>
                     <div class="cards-hashtag">
-                        {% for hashtag in post.hashtag_set.all %}
+                        {% for hashtag in post.hashtag_set.all|slice:":2" %}
                         <h3>{{hashtag.name_hashtag}}</h3>
                         {% endfor %}
                     </div>

@@ -21,21 +21,23 @@
                 <div id="boards-nav">
                     <h3>Tableros</h3>
                     {% if boards %}
-                        <nav>
-                            <ul>
-                                {% for board in boards %}
-                                    <li class="{% if board.name|length > 21 %}truncate-text{% endif %}">
-                                        <a href="{% url 'board' board.id %}">
-                                            {% if board.name|length > 21 %}
-                                                {{ board.name|slice:":18" }}...
-                                            {% else %}
-                                                {{ board.name }}
-                                            {% endif %}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </nav>
+                        <div id="overflow-for-nav">
+                            <nav>
+                                <ul>
+                                    {% for board in boards %}
+                                        <li class="{% if board.name|length > 21 %}truncate-text{% endif %}">
+                                            <a href="{% url 'board' board.id %}">
+                                                {% if board.name|length > 21 %}
+                                                    {{ board.name|slice:":18" }}...
+                                                {% else %}
+                                                    {{ board.name }}
+                                                {% endif %}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </nav>
+                        </div>
                         <a href="{% url 'create_new_board' %}">
                             <button type="button">+</button>
                         </a>
@@ -47,6 +49,9 @@
                 </div>
                 <div id="options-profile">
                     <button type="button" onclick="deleteBoard({{board.id}})">Eliminar</button>
+                    <a href="{% url 'profile_user' %}">
+                        <button type="button" id="back-button">Volver a perfil</button>
+                    </a>
                     <button type="button">Configuraciones</button>
                     <a href="{% url 'logout' %}">
                         <button type="button" id="logout-button">Cerrar sesión</button>
@@ -71,8 +76,17 @@
                             <h2>{{post.title}}</h2>
                             <h3>{{post.description}}</h3>
                             <div class="likes-user">
+                                <div class="mini-image-container">
+                                    <img 
+                                        class="mini-image-user" 
+                                        src="{{ post.user.image }}" 
+                                        alt="image-user">
+                                </div>
                                 <h3>{{post.user.nickname}}</h3>
-                                <h3>{{post.likes}}</h3>
+                                <div class="letters-like">
+                                    <h3>me gusta:</h3>
+                                    <h3>{{post.likes}}</h3>
+                                </div>
                             </div>
                             <div class="cards-hashtag">
                                 {% for hashtag in post.hashtag_set.all|slice:":2" %}

@@ -89,10 +89,29 @@
         font-size: 80%;
     }
 
+    /* */
     .likes-user {
         display: flex;
     }
 
+    .mini-image-container {
+        width: 30px;
+        height: 30px;
+    }
+
+    .mini-image-user {
+        object-fit: cover;
+        
+        border-radius: 50%;
+    }
+
+    .letters-like {
+        display: flex;
+        flex-direction: row;
+        margin-left: 40px;
+    }
+
+    /* */
     .cards-hashtag {
         display: flex;
         flex-wrap: wrap;

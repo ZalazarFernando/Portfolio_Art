@@ -27,8 +27,24 @@ section {
     box-shadow: 1px 1px 5px black;
 }
 
+#overflow-for-nav {
+    max-height: 150px;
+    min-width: 100%;
+    overflow: overlay;
+    overflow-x: hidden;
+    margin-right: -15px;
+}
+
+#overflow-for-nav::-webkit-scrollbar {
+    margin-right: 15px;
+}
+
+#overflow-for-nav::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
 #lateral-bar #boards-nav nav {
-    width: 100px;
+    width: 100%;
     margin-left: -10.5%;
 }
 
@@ -75,8 +91,8 @@ section {
     margin-top: 10px;
 }
 
-#lateral-bar #options-profile #logout-button {
-    margin-left: -25%;
+#logout-button, #back-button {
+    margin-right: 50%;
 }
 
 #all-cards {
@@ -132,6 +148,27 @@ a {
 
 .likes-user {
     display: flex;
+}
+
+.likes-user {
+    display: flex;
+}
+
+.mini-image-container {
+    width: 30px;
+    height: 30px;
+}
+
+.mini-image-user {
+    object-fit: cover;
+    
+    border-radius: 50%;
+}
+
+.letters-like {
+    display: flex;
+    flex-direction: row;
+    margin-left: 40px;
 }
 
 .cards-hashtag {

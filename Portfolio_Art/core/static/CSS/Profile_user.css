@@ -25,13 +25,22 @@
         border: 1px solid black;
         border-radius: 10px;
         width: 95%;
-        
         transition: all 0.3s ease;
     }
 
     #overflow-for-nav {
-        max-height: 300px;
-        overflow-x: auto;
+        max-height: 150px;
+        overflow: overlay;  /* Muestra las barras solo cuando sea necesario */
+        overflow-x: hidden;
+        margin-right: -15px;
+    }
+    
+    #overflow-for-nav::-webkit-scrollbar {
+        width: 15px; /* ajusta tamaño de barra */
+    }
+    
+    #overflow-for-nav::-webkit-scrollbar-thumb {
+        background-color: transparent; /* vuelve invisible la barra */
     }
 
     #lateral-bar #boards-nav:hover {
@@ -101,7 +110,7 @@
 
     a {
         text-decoration: none;
-        color: inherit; 
+        color: inherit;
     }
 
     .cards:hover {
@@ -131,6 +140,27 @@
 
     .likes-user {
         display: flex;
+    }
+
+    .likes-user {
+        display: flex;
+    }
+
+    .mini-image-container {
+        width: 30px;
+        height: 30px;
+    }
+
+    .mini-image-user {
+        object-fit: cover;
+        
+        border-radius: 50%;
+    }
+
+    .letters-like {
+        display: flex;
+        flex-direction: row;
+        margin-left: 40px;
     }
 
     .cards-hashtag {
