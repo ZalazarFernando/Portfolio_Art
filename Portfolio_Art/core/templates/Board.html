@@ -4,6 +4,7 @@
 
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/Board.css' %}">
+    <script src="stylesheet" type="text/css" href="{% static 'CSS/scripts.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 {% endblock %}
 
@@ -70,8 +71,8 @@
                             onclick="removeFromBoard('{{ post.id }}', '{{ board.id }}')">x</button>
                     {% endif %}
                     <a href="{% url 'view_the_post' post.id %}">
-                        <div class="cards">
-                            
+                        <div class="cards card-item" data-post-id="{{ post.id }}">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                             <img src="{{post.image}}" alt="fox">
                             <h2>{{post.title}}</h2>
                             <h3>{{post.description}}</h3>
@@ -97,8 +98,13 @@
                     </a>
                 </div>
             {% endfor %}
+            <div id="context-menu" class="context-menu">
+                <ul>
+                    <li id="btn-edit">Editar</li>
+                    <li id="btn-delete">Borrar</li>
+                </ul>
+            </div>
         </div>
-    </section>
 
     <script>
         function deleteBoard(board_id) {
