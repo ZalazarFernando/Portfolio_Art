@@ -239,6 +239,25 @@ def CreateNewBoardComponent(request):
         context= {'form' : form}
     )
 
+def EditBoardComponent(request, board_id):
+    board = Board.objects.get(id=board_id)
+
+    if request.method == 'POST':
+        form = BoardForm(request.POST, instance=board)
+        if form.is_valid():
+            board = form.save(commit=False)
+            board.user = request.user
+            board.save()
+            return redirect('profile_user')
+    else:
+        form = BoardForm(instance=board)
+
+    return render(
+        request= request,
+        template_name= "Create_new_board.html",
+        context= {'form' : form}
+    )   
+
 def BoardComponent(request, board_id):
     if request.user.is_authenticated:
         boards = Board.objects.filter(user= request.user)

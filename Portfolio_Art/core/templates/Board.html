@@ -53,7 +53,9 @@
                     <a href="{% url 'profile_user' %}">
                         <button type="button" id="back-button">Volver a perfil</button>
                     </a>
-                    <button type="button">Configuraciones</button>
+                    <a href="{% url 'edit-board' board.id %}">
+                        <button type="button" id="edit-board-btn">Configuraciones</button>
+                    </a>
                     <a href="{% url 'logout' %}">
                         <button type="button" id="logout-button">Cerrar sesión</button>
                     </a>
