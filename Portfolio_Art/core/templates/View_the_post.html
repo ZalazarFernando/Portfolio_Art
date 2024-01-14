@@ -11,130 +11,133 @@
 {% block content %}
     <section id="section-view-the-post">
         <div id="principal-card">
-            <img src="{{posting.image}}" alt="fox">
-            <div id="btn-info">
-                <div id="info-principal-card">
-                    <h2>{{posting.title}}</h2>
-                    <h3>{{posting.description}}</h3>
-                    <div class="cards-hashtag-principal">
-                        {% for hashtag in hashtags %}
-                        <h3>{{hashtag.name_hashtag}}</h3>
-                        {% endfor %}
+            <div id="cointainer-image-info">
+                <img src="{{posting.image}}" alt="fox">
+                <div id="btn-info">
+                    <div id="info-principal-card">
+                        <h2>{{posting.title}}</h2>
+                        <h3>{{posting.description}}</h3>
+                        <div class="cards-hashtag-principal">
+                            {% for hashtag in hashtags %}
+                            <h3>{{hashtag.name_hashtag}}</h3>
+                            {% endfor %}
+                        </div>
                     </div>
                 </div>
-                <div id="buttons-principal-card">
-                    <div id="buttons-up">
-                        <div id="btn-likes">
-                            <h3>{{posting.likes}}</h3>
-                            <button 
-                                type="button" 
-                                id="btn-like" 
-                                data-post-id="{{ posting.id }}">Me gusta</button>
-                        </div>
-                        <button     
-                            type="button"   
-                            id="btn-add-board"
-                            onclick="showBoards()">Añadir a tablero</button>
-                        <div id="count-btn-comments">
-                            <h3>{{ num_comments }}</h3>
-                            <button 
-                                type="button" 
-                                id="btn-comments"
-                                onclick="showComments()">Comentarios</button>
-                        </div>
-                        {% if user.is_authenticated and posting.user.id == user.id %}
-                            <div 
-                                id="btns-for-user" 
-                                style="display: flex; flex-direction: column; margin-right: 20px; margin-top: 10px">
-                                <a href="{% url 'edit_post' posting.id %}">
-                                    <button 
-                                        type="button"
-                                        id="btn-modify">Editar</button>
-                                </a>
+            </div>
+            <div id="buttons-principal-card">
+                <div id="buttons-up">
+                    <div id="btn-likes">
+                        <h3>{{posting.likes}}</h3>
+                        <button 
+                            type="button" 
+                            id="btn-like" 
+                            data-post-id="{{ posting.id }}">Me gusta</button>
+                    </div>
+                    <button     
+                        type="button"   
+                        id="btn-add-board"
+                        onclick="showBoards()">Añadir a tablero</button>
+                    <div id="count-btn-comments">
+                        <h3>{{ num_comments }}</h3>
+                        <button 
+                            type="button" 
+                            id="btn-comments"
+                            onclick="showComments()">Comentarios</button>
+                    </div>
+                    {% if user.is_authenticated and posting.user.id == user.id %}
+                        <div 
+                            id="btns-for-user" 
+                            style="display: flex; flex-direction: column; margin-right: 20px; margin-top: 10px">
+                            <a href="{% url 'edit_post' posting.id %}">
                                 <button 
-                                type="button"
-                                id="btn-delete"
-                                onclick="deletePost({{ posting.id }})">Borrar</button>
-                            </div>
-                        {% endif %}
-                    </div>
-                    <div id="commentSection"  style="display: none; text-align: center;">
-                        <form id="commentForm" method="post">
-                            {% csrf_token %}
-                            {{ form.comment }}
-                            <input type="hidden" name="post_id" value="{{ posting.id }}">
-                            <button type="submit" class="form-control">Comentar</button>
-                        </form>
-                    </div>
-                    <div id="showSection"  style="display: none; text-align: center; overflow-y: auto; max-height: 100px;">
-                        {% for comment in comments_to_show %}
-                            <div>
-                                {{ comment.user }}
-                                {{ comment.comment }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div id="boardsSection"  style="display: none; text-align: center; overflow-y: auto; max-height: 100px;">
-                        {% if boards %}
-                            <nav>
-                                <ul>
-                                    {% for board in boards %}
-                                    <li class="li_board" onclick="addPostToBoard({{ board.id }})">
-                                            <a href="#">
-                                                {% if board.name|length > 21 %}
-                                                    {{ board.name|slice:":18" }}...
-                                                {% else %}
-                                                    {{ board.name }}
-                                                {% endif %}
-                                            </a>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            </nav>
-                            <a href="{% url 'create_new_board' %}">
-                                <button 
-                                    type="button">+</button>
+                                    type="button"
+                                    id="btn-modify">Editar</button>
                             </a>
-                        {% else %}
-                            <a href="{% url 'log_in' %}">
-                                <button type="button">Iniciar sesión</button>
-                            </a>
-                        {% endif %}
-                    </div>
+                            <button 
+                            type="button"
+                            id="btn-delete"
+                            onclick="deletePost({{ posting.id }})">Borrar</button>
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="commentSection"  style="display: none; text-align: center;">
+                    <form id="commentForm" method="post">
+                        {% csrf_token %}
+                        {{ form.comment }}
+                        <input type="hidden" name="post_id" value="{{ posting.id }}">
+                        <button type="submit" class="form-control">Comentar</button>
+                    </form>
+                </div>
+                <div id="showSection"  style="display: none; text-align: center; overflow-y: auto; max-height: 100px;">
+                    {% for comment in comments_to_show %}
+                        <div>
+                            {{ comment.user }}
+                            {{ comment.comment }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <div id="boardsSection"  style="display: none; text-align: center; overflow-y: auto; max-height: 100px;">
+                    {% if boards %}
+                        <nav>
+                            <ul>
+                                {% for board in boards %}
+                                <li class="li_board" onclick="addPostToBoard({{ board.id }})">
+                                        <a href="#">
+                                            {% if board.name|length > 21 %}
+                                                {{ board.name|slice:":18" }}...
+                                            {% else %}
+                                                {{ board.name }}
+                                            {% endif %}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                        <a href="{% url 'create_new_board' %}">
+                            <button 
+                                type="button">+</button>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'log_in' %}">
+                            <button type="button">Iniciar sesión</button>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
 
         <div id="all-cards">
-            {% for post in all_posting %}
-                <a href="{% url 'view_the_post' post.id %}">
-                    <div class="cards card-item" data-post-id="{{ post.id }}">
-                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                        <img src="{{post.image}}" alt="fox">
-                        <h2>{{post.title}}</h2>
-                        <h3>{{post.description}}</h3>
-                        <div class="likes-user">
-                            <div class="mini-image-container">
-                                <img 
-                                    class="mini-image-user" 
-                                    src="{{ post.user.image }}" 
-                                    alt="image-user">
+            <div id="container-cards">
+                {% for post in all_posting %}
+                    <a href="{% url 'view_the_post' post.id %}">
+                        <div class="cards card-item" data-post-id="{{ post.id }}">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            <img src="{{post.image}}" alt="fox">
+                            <h2>{{post.title}}</h2>
+                            <h3>{{post.description}}</h3>
+                            <div class="likes-user">
+                                <div class="mini-image-container">
+                                    <img 
+                                        class="mini-image-user" 
+                                        src="{{ post.user.image }}" 
+                                        alt="image-user">
+                                </div>
+                                <h3>{{post.user.nickname}}</h3>
+                                <div class="letters-like">
+                                    <h3>me gusta:</h3>
+                                    <h3>{{post.likes}}</h3>
+                                </div>
                             </div>
-                            <h3>{{post.user.nickname}}</h3>
-                            <div class="letters-like">
-                                <h3>me gusta:</h3>
-                                <h3>{{post.likes}}</h3>
+                            <div class="cards-hashtag">
+                                {% for hashtag in post.hashtag_set.all|slice:":2" %}
+                                <h3>{{hashtag.name_hashtag}}</h3>
+                                {% endfor %}
                             </div>
                         </div>
-                        <div class="cards-hashtag">
-                            {% for hashtag in post.hashtag_set.all|slice:":2" %}
-                            <h3>{{hashtag.name_hashtag}}</h3>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
-
+                    </a>
+                {% endfor %}
+            </div>
             <div id="context-menu" class="context-menu">
                 <ul>
                     <li id="btn-edit">Editar</li>
@@ -165,10 +168,10 @@
 
             if (board_flag) {
                 boardsSection.style.display = 'block';
-                buttonsBox.style.marginTop = 210-(heightBox + (boardsSection.clientHeight + heightBox)) + 'px';
+                //buttonsBox.style.marginTop = 210-(heightBox + (boardsSection.clientHeight + heightBox)) + 'px';
             } else {
                 boardsSection.style.display = 'none';
-                buttonsBox.style.marginTop = '0px';
+                //buttonsBox.style.marginTop = '0px';
             }
         }
     </script>
@@ -196,15 +199,13 @@
             if (comment_flag) {
                 commentSection.style.display = 'block';
                 showSection.style.display = 'block';
-                
-                buttonsBox.style.marginTop = 70-(heightBox + (showSection.clientHeight + heightBox)) + 'px';
+                //buttonsBox.style.marginTop = 70-(heightBox + (showSection.clientHeight + heightBox)) + 'px';
             } else {
                 commentSection.style.display = 'none';
                 showSection.style.display = 'none';
-                buttonsBox.style.marginTop = '0px';
+                //buttonsBox.style.marginTop = '0px';
             }
         }
-
     </script>
 
     <script>
