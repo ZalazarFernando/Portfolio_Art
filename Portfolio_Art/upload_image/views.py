@@ -1,20 +1,21 @@
+import json
 from django.shortcuts import render, redirect
-from .forms import PostForm, HashtagForm
+from .forms import PostForm
 from core.models import Hashtag, Post
 
 # Create your views here.
 def UploadImageComponent(request):
     if request.method == 'POST':
         post_form = PostForm(request.POST)
-        hashtag_content = request.POST.get('hashtag')
-
-        if post_form.is_valid() and hashtag_content is not None:
+        
+        if post_form.is_valid():
             post_instance = post_form.save(commit=False)
             post_instance.user = request.user
             post_instance.save()
             
+            hashtag_content = post_form.cleaned_data['hashtag']
             hashtags_list = hashtag_content.split()
-
+            
             for hashtag in hashtags_list:
                 Hashtag.objects.create(
                     post=post_instance, 
@@ -22,14 +23,20 @@ def UploadImageComponent(request):
                     )
 
             return redirect('home')
+        else :
+             print(post_form.errors)
     else:
         post_form = PostForm()
-        #hashtag_form = HashtagForm()
+
+    errors_json = json.dumps(post_form.errors)
 
     return render(
         request=request,
         template_name="Upload_image.html",
-        context={'post_form': post_form}
+        context={
+            'post_form': post_form,
+            'errors_json': errors_json
+                 }
     )
 
 def EditPostComponent(request, post_id):
@@ -41,9 +48,8 @@ def EditPostComponent(request, post_id):
     if request.user == post_to_edit.user:
         if request.method == 'POST':
             post_form = PostForm(request.POST, instance=post_to_edit)
-            hashtag_content = request.POST.get('hashtag')
             
-            if post_form.is_valid() and hashtag_content is not None:
+            if post_form.is_valid():
                 post_instance = post_form.save(commit=False)
                 post_instance.user = request.user
                 post_instance.save()
@@ -51,6 +57,7 @@ def EditPostComponent(request, post_id):
                 for hashtag in hashtag_to_post:
                     hashtag.delete()
                 
+                hashtag_content = post_form.cleaned_data['hashtag']
                 hashtags_list = hashtag_content.split()
 
                 for hashtag in hashtags_list:
@@ -62,8 +69,6 @@ def EditPostComponent(request, post_id):
             return redirect('home')
         else:
             post_form = PostForm(instance=post_to_edit)
-
-            initial_hashtags = ' '.join(hashtag.name_hashtag for hashtag in hashtag_to_post)
 
     else:
         return redirect('home')

@@ -23,6 +23,14 @@
         width: 350px;
         resize: none;
     }
+    
+    .form-textarea {
+        height: 110px;
+    }
+
+    #hashtags{
+        margin-top: 10px
+    }
 
     #image-title {
         margin-left: 4%;
@@ -48,10 +56,6 @@
         margin-top: 20px;
     }
 
-    #input-description-hashtag #hashtag {
-        margin-top: 20px;
-    }
-
     button {
         background-color: #ffffff;
         border-radius: 20px;
@@ -65,4 +69,22 @@
     
     button:hover {
         box-shadow: 1px 1px 5px black;
+    }
+
+    #error-container {
+        position: absolute;
+        background-color: #ff9999;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ff0000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: none;
+        width: 100px;
+        margin-left: 652px;
+        margin-top: -320px;
+    }
+    
+    #error-message {
+        margin: 0;
+        color: #ff0000;
     }

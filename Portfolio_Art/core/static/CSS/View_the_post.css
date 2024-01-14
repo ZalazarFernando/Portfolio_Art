@@ -43,13 +43,14 @@ button:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    margin-top: -15px;
+    margin-top: 40px;
 }
 
-#principal-card .cards-hashtag h3 {
+.cards-hashtag-principal h3 {
     font-family: Verdana, sans-serif;
     font-size: 80%;
     font-weight: bold;
+    margin-top: -10px;
 }
 
 #cointainer-image-info {
@@ -62,7 +63,7 @@ button:hover {
 }
 
 #info-principal-card {
-    width: 70%;
+    width: 95%;
     height: 470px;
 }
 

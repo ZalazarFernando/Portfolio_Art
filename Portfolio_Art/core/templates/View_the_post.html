@@ -19,7 +19,7 @@
                         <h3>{{posting.description}}</h3>
                         <div class="cards-hashtag-principal">
                             {% for hashtag in hashtags %}
-                            <h3>{{hashtag.name_hashtag}}</h3>
+                                <h3>{{hashtag.name_hashtag}}</h3>
                             {% endfor %}
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                             </div>
                             <div class="cards-hashtag">
                                 {% for hashtag in post.hashtag_set.all|slice:":2" %}
-                                <h3>{{hashtag.name_hashtag}}</h3>
+                                    <h3>{{hashtag.name_hashtag}}</h3>
                                 {% endfor %}
                             </div>
                         </div>
