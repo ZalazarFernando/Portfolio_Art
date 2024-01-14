@@ -19,7 +19,7 @@ def UploadImageComponent(request):
             for hashtag in hashtags_list:
                 Hashtag.objects.create(
                     post=post_instance, 
-                    name_hashtag=hashtag
+                    name_hashtag=hashtag.lower()
                     )
 
             return redirect('home')
@@ -63,12 +63,17 @@ def EditPostComponent(request, post_id):
                 for hashtag in hashtags_list:
                     Hashtag.objects.create(
                         post=post_instance, 
-                        name_hashtag=hashtag
+                        name_hashtag=hashtag.lower()
                         )
 
             return redirect('home')
         else:
             post_form = PostForm(instance=post_to_edit)
+
+            hashtag_name = [ hashtag.name_hashtag for hashtag in Hashtag.objects.filter(post__id= post_to_edit.id)]
+            str_hashtags = " ".join(hashtag_name)
+
+            post_form.fields['hashtag'].initial = str_hashtags
 
     else:
         return redirect('home')
