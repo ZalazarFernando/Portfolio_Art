@@ -39,7 +39,6 @@
     }
 
     #all-cards {
-        margin-left: 1%;
         width: 98%;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
@@ -48,6 +47,7 @@
 
     .cards {
         margin-top: 5px;
+        margin-left: 2.5px;
         background-color: #ffffff;
         border: 1px solid #c2c2c2;
         border-radius: 10px;
@@ -130,6 +130,13 @@
     }
     /* */
 
+    .btns-container {
+        background-color: white;
+        border-radius: 10px;
+        border: 1px solid #c2c2c2;
+        margin-top: 5px;
+    }
+
     .context-menu {
         display: none;
         position: fixed;
@@ -151,4 +158,68 @@
         cursor: pointer;
         font-family:Verdana, Geneva, Tahoma, sans-serif;
         font-size: 10px;
+    }
+
+    button {
+        background-color: #ffffff;
+        border-radius: 20px;
+        border: 1px solid #000000;
+        height: 40px;
+        width: 80px;
+        margin-top: 10px;
+        margin-left: 15px;
+        margin-bottom: 10px;
+        transition: all 0.3s ease; 
+    }
+    
+    button:hover {
+        box-shadow: 1px 1px 5px black;
+    }
+
+    .boardsSection {
+        border: 1px solid black;
+        border-radius: 10px;
+        width: 90%;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        margin-right: 20%;
+        transition: all 0.3s ease;
+    }
+    
+    .boardsSection:hover {
+        box-shadow: 1px 1px 5px black;
+    }
+
+    .boardsSection::-webkit-scrollbar {
+        width: 20%;
+    }
+
+    .boardsSection::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+    
+    .boardsSection nav {
+        width: 100px;
+        margin-left: -15%;
+    }
+    
+    .boardsSection nav li {
+        border: 1px solid #000000;
+        border-radius: 10px;
+        width: 200px;
+        height: 20px;
+        margin-bottom: 2px;
+        text-align: center;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+    
+    .boardsSection nav li.truncate-text {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    
+    .boardsSection nav li:hover {
+        box-shadow: 1px 1px 5px black;
     }

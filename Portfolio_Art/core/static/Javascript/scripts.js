@@ -29,11 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
         contextMenu.style.top = y + 'px';
 
         // Almacena el id en un atributo de datos
+        selectedPostId = postId;
         contextMenu.setAttribute('data-post-id', postId);
 
         // Agrega eventos
         var btnEdit = document.getElementById('btn-edit');
         var btnDelete = document.getElementById('btn-delete');
+        var btnAddToBoard = document.getElementById('btn-add-to-board');
 
         btnEdit.addEventListener('click', function () {
             handleMenuAction('edit', postId);
@@ -41,6 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         btnDelete.addEventListener('click', function () {
             handleMenuAction('delete', postId);
+        });
+
+        btnAddToBoard.addEventListener('click', function () {
+            handleMenuAction('add', postId);
         });
 
         document.addEventListener('click', hideContextMenu);
@@ -53,9 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // Elimina los eventos al ocultar el menú
         var btnEdit = document.getElementById('btn-edit');
         var btnDelete = document.getElementById('btn-delete');
+        var btnAddToBoard = document.getElementById('btn-add-to-board');
 
         btnEdit.removeEventListener('click', handleMenuAction);
         btnDelete.removeEventListener('click', handleMenuAction);
+        btnAddToBoard.removeEventListener('click', handleMenuAction);
     }
 
     function handleMenuAction(action, postId) {
@@ -63,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if(action==='edit'){
                 var editUrl = `/edit_post/${postId}/`;
                 window.location.href = editUrl;
-            } else {
+            } else if (action==='delete') {
                 //obtener csrfToken
                 var csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
@@ -88,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         console.log('Error delete post:', error);
                     }
                 })
-            }
+            } 
         }
     }
 });

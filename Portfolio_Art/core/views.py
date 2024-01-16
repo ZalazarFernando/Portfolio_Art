@@ -23,15 +23,18 @@ def HomeComponent(request, search=None):
     if search:
         posting = Post.objects.filter(Q(title__icontains=search) | Q(hashtag__name_hashtag__icontains=search))
         boards = Board.objects.filter(name__icontains=search)
+        boards_nav = Board.objects.all()
     else:
         posting = Post.objects.select_related('user').prefetch_related('hashtag_set').all()
         boards = None
+        boards_nav = Board.objects.all()
 
     posting = posting.select_related('user').prefetch_related('hashtag_set')
 
     context = {
         'posting' : posting.order_by('-likes'),
-        'boards' : boards
+        'boards' : boards,
+        'boards_nav' : boards_nav
     }
 
     return render(
@@ -185,6 +188,8 @@ def AddPostToBoardComponent(request):
     if request.method == 'POST' and request.user.is_authenticated:
         board_id = request.POST.get('board_id')
         post_id = request.POST.get('post_id')
+        
+        print(post_id)
 
         if board_id and post_id:
             try:

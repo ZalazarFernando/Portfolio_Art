@@ -26,38 +26,72 @@
         {% endif %}
         <div id="all-cards">
             {% for post in posting %}
-                <a href="{% url 'view_the_post' post.id %}">
-                    <div class="cards card-item" data-post-id="{{ post.id }}">
-                        <!--lo requiero para enviar el código de seguridad-->
-                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                        <img src="{{post.image}}" alt="fox">
-                        <h2>{{post.title}}</h2>
-                        {% if post.description|length > 50 %}
-                            <h3 class="text-description">{{ post.description|slice:":50"}}...</h3>
-                        {% else %}
-                            <h3 class="text-description">{{ post.description}}</h3>
-                        {% endif %}
-                        
-                        <div class="likes-user">
-                            <div class="mini-image-container">
-                                <img 
-                                    class="mini-image-user" 
-                                    src="{{ post.user.image }}" 
-                                    alt="image-user">
+                <div class="container-card-btn">
+                    <a href="{% url 'view_the_post' post.id %}">
+                        <div class="cards card-item" data-post-id="{{ post.id }}">
+                            <!--lo requiero para enviar el código de seguridad-->
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            <img src="{{post.image}}" alt="fox">
+                            <h2>{{post.title}}</h2>
+                            {% if post.description|length > 50 %}
+                                <h3 class="text-description">{{ post.description|slice:":50"}}...</h3>
+                            {% else %}
+                                <h3 class="text-description">{{ post.description}}</h3>
+                            {% endif %}
+                            
+                            <div class="likes-user">
+                                <div class="mini-image-container">
+                                    <img 
+                                        class="mini-image-user" 
+                                        src="{{ post.user.image }}" 
+                                        alt="image-user">
+                                </div>
+                                <h3>{{post.user.nickname}}</h3>
+                                <div class="letters-like">
+                                    <h3>me gusta:</h3>
+                                    <h3>{{post.likes}}</h3>
+                                </div>
                             </div>
-                            <h3>{{post.user.nickname}}</h3>
-                            <div class="letters-like">
-                                <h3>me gusta:</h3>
-                                <h3>{{post.likes}}</h3>
+                            <div class="cards-hashtag">
+                                {% for hashtag in post.hashtag_set.all|slice:":2" %}
+                                    <h3>{{hashtag.name_hashtag}}</h3>
+                                {% endfor %}
                             </div>
                         </div>
-                        <div class="cards-hashtag">
-                            {% for hashtag in post.hashtag_set.all|slice:":2" %}
-                                <h3>{{hashtag.name_hashtag}}</h3>
-                            {% endfor %}
+                    </a>
+                    <div class="btns-container">
+                        <button class="btn-board" onclick="showBoards({{ forloop.counter0 }})">Añadir a tablero</button>
+
+                        <div class="boardsSection"  
+                            style="display: none; text-align: center; overflow: overlay; overflow-x: hidden; max-height: 100px;">
+                            {% if boards_nav %}
+                                <nav>
+                                    <ul>
+                                        {% for board in boards_nav %}
+                                        <li class="li_board" onclick="addPostToBoard({{ board.id }}, {{ post.id }})">
+                                            <a href="#">
+                                                {% if board.name|length > 21 %}
+                                                    {{ board.name|slice:":18" }}...
+                                                {% else %}
+                                                    {{ board.name }}
+                                                {% endif %}
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </nav>
+                                <a href="{% url 'create_new_board' %}">
+                                    <button 
+                                        type="button">+</button>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'log_in' %}">
+                                    <button type="button">Iniciar sesión</button>
+                                </a>
+                            {% endif %}
                         </div>
                     </div>
-                </a>
+                </div>
             {% endfor %}
             <div id="context-menu" class="context-menu">
                 <ul>
@@ -67,4 +101,54 @@
             </div>
         </div>
     </section>
+
+    <script>
+        var board_flag = false;
+
+        function showBoards(index) {
+            if(board_flag === false){
+                board_flag = true;
+                updateDOMBaseOnBoardFlag(index);
+            } else {
+                board_flag = false;
+                updateDOMBaseOnBoardFlag(index);
+            }
+        }
+
+        function updateDOMBaseOnBoardFlag(index) {
+            var boardsSection = document.getElementsByClassName('boardsSection');
+
+            if (board_flag) {
+                boardsSection[index].style.display = 'block';
+            } else {
+                boardsSection[index].style.display = 'none';
+            }
+        }
+    </script>
+
+    <script>
+        function addPostToBoard(boardId, postId) {
+        
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'add_post_to_board' %}",
+                data: {
+                    'board_id': boardId,
+                    'post_id': postId,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function (response) {
+                    if (response === 'success') {
+                        console.log('Post added to board successfully');
+                    } else {
+                        console.log('Error adding post to board');
+                    }
+                },
+                error: function (error) {
+                    console.log('Error adding post to board:', error);
+                }
+            });
+        }
+    </script>
+
 {% endblock  %}
