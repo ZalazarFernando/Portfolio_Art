@@ -11,6 +11,28 @@ function handleKeyPress(event) {
     }
 }
 
+var board_flag = false;
+
+function showBoards(index) {
+    if(board_flag === false){
+        board_flag = true;
+        updateDOMBaseOnBoardFlag(index);
+    } else {
+        board_flag = false;
+        updateDOMBaseOnBoardFlag(index);
+    }
+}
+
+function updateDOMBaseOnBoardFlag(index) {
+    var boardsSection = document.getElementsByClassName('boardsSection');
+
+    if (board_flag) {
+        boardsSection[index].style.display = 'block';
+    } else {
+        boardsSection[index].style.display = 'none';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     var cards = document.querySelectorAll('.card-item');
     var contextMenu = document.getElementById('context-menu');

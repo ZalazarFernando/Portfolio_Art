@@ -4,7 +4,7 @@
 
 {% block styles %}
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/Home.css' %}">
-    <script src="stylesheet" type="text/css" href="{% static 'CSS/scripts.js' %}"></script>
+    <script src="{% static 'Javascript/scripts.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 {% endblock %}
 
@@ -103,35 +103,10 @@
     </section>
 
     <script>
-        var board_flag = false;
-
-        function showBoards(index) {
-            if(board_flag === false){
-                board_flag = true;
-                updateDOMBaseOnBoardFlag(index);
-            } else {
-                board_flag = false;
-                updateDOMBaseOnBoardFlag(index);
-            }
-        }
-
-        function updateDOMBaseOnBoardFlag(index) {
-            var boardsSection = document.getElementsByClassName('boardsSection');
-
-            if (board_flag) {
-                boardsSection[index].style.display = 'block';
-            } else {
-                boardsSection[index].style.display = 'none';
-            }
-        }
-    </script>
-
-    <script>
         function addPostToBoard(boardId, postId) {
-        
             $.ajax({
                 type: 'POST',
-                url: "{% url 'add_post_to_board' %}",
+                url: '/add_post_to_board/',
                 data: {
                     'board_id': boardId,
                     'post_id': postId,

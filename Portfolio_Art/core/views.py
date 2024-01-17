@@ -210,14 +210,14 @@ def ProfileUserComponent(request):
     posting = Post.objects.filter(user=request.user)
     posting = posting.select_related('user').prefetch_related('hashtag_set')
 
-    boards = Board.objects.filter(user=request.user)
+    boards_nav = Board.objects.filter(user=request.user)
 
     if request.user.is_authenticated:
         user = request.user
 
     context = {
         'posting' : posting,
-        'boards' : boards,
+        'boards_nav' : boards_nav,
         'user' : user
     }
 
